@@ -64,13 +64,13 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#home" class="smoothScroll">Home</a></li>
-                <li><a href="#desc" class="smoothScroll">Description</a></li>
-                <li><a href="#features" class="smoothScroll">Statistics</a></li>
+                <li><a href="#desc" class="smoothScroll">Giới thiệu</a></li>
+                <li><a href="#features" class="smoothScroll">Thống kê</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
-                    <li><a href="{{ url('/login') }}">Login</a></li>
-                    <li><a href="{{ url('/register') }}">Register</a></li>
+                    <li><a href="{{ url('/login') }}">Đăng nhập</a></li>
+                    <li><a href="#" id="register">Đăng ký</a></li>
                 @else
                     <li><a href="/home">{{ Auth::user()->name }}</a></li>
                 @endif
@@ -158,12 +158,101 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     </div>
 </div>
 
+<!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Đăng ký thành viên</h4>
+                </div>
+                <div class="modal-body">
+  
+                    <form id="formRegister" class="form-horizontal" role="form" method="POST" action="{{ url('register') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Họ tên</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="name">
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+  
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Email</label>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" name="email">
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+  
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Password</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" name="password">
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+  
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Nhập lại password</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" name="password_confirmation">
+                            </div>
+                        </div>
+  
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>                       
+  
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script>
-    $('.carousel').carousel({
-        interval: 3500
+     $(function(){
+  
+        $('#register').click(function() {
+            $('#myModal').modal();
+        });
+  
+        $(document).on('submit', '#formRegister', function(e) {  
+            e.preventDefault();
+              
+            $('input+small').text('');
+            $('input').parent().removeClass('has-error');
+              
+            $.ajax({
+                method: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType: "json"
+            })
+            .done(function(data) {
+                $('.alert-success').removeClass('hidden');
+                $('#myModal').modal('hide');
+            })
+            .fail(function(data) {
+                $.each(data.responseJSON, function (key, value) {
+                    var input = '#formRegister input[name=' + key + ']';
+                    $(input + '+small').text(value);
+                    $(input).parent().addClass('has-error');
+                });
+            });
+        });
+  
     })
+
+    
+    
 </script>
 </body>
 </html>
