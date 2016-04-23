@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Skill;
+use App\Study;
+use App\Hobby;
 
 class User extends Authenticatable
 {
@@ -23,4 +26,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function skills()
+    {
+        return $this->hasMany('App\Skill');
+    }
+
+    public function studies()
+    {
+        return $this->hasMany('App\Study');
+    }
+
+    public function hobbies()
+    {
+        return $this->hasMany('App\Hobby');
+    }
 }
