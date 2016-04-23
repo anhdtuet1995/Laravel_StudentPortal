@@ -56,6 +56,7 @@ class AuthController extends Controller
         ]);
     }
 
+    
     /**
      * Create a new user instance after a valid registration.
      *
@@ -74,7 +75,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = $this->validator($request->all());
- 
+        
         if ($validator->fails()) {
             $this->throwValidationException(
                 $request, $validator

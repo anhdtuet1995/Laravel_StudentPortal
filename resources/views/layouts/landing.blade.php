@@ -17,7 +17,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
 
-    <script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="{{ asset('/js/smoothscroll.js') }}"></script>
     
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -87,7 +87,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
             <div class="col-lg-12">
                 <h1>CONNECTWF</h1>
                 <h3>Cổng thông tin sinh viên</h3>
-                <h3><a href="{{ url('/register') }}" class="btn btn-lg btn-success">Get Started!</a></h3>
+                <h3><a href="#" id="register2" class="btn btn-lg btn-success">Đăng ký ngay!</a></h3>
             </div>
         </div>
     </div> <!--/ .container -->
@@ -223,7 +223,12 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         $('#register').click(function() {
             $('#myModal').modal();
         });
-  
+    
+
+        $('#register2').click(function(){
+            $('#myModal').modal();
+        });
+        
         $(document).on('submit', '#formRegister', function(e) {  
             e.preventDefault();
               
