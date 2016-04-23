@@ -15,8 +15,8 @@ class CreateProfileTable extends Migration
         Schema::create('skills', function (Blueprint $table){
             $table->increments('id');
             $table->string('name');
+            $table->integer('value');
             $table->integer('user_id')->unsigned();
-
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')
             ->onUpdate('cascade')->onDelete('cascade');
@@ -35,8 +35,8 @@ class CreateProfileTable extends Migration
         Schema::create('studies', function (Blueprint $table){
             $table->increments('id');
             $table->string('name');
+            $table->date('publication_date');
             $table->integer('user_id')->unsigned();
-
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')
             ->onUpdate('cascade')->onDelete('cascade');
@@ -53,5 +53,6 @@ class CreateProfileTable extends Migration
         Schema::drop('skills');
         Schema::drop('hobbies');
         Schema::drop('studies');
+        Schema::drop('users');
     }
 }

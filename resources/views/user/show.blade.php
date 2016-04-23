@@ -79,11 +79,11 @@
 					<h2 style="padding-bottom:30px;">Kỹ năng</h2>
 					@foreach($skills as $skill)
 					<div class="progress">
-			            <div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-			                <span class="sr-only">60% Complete</span>
+			            <div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="{{$skill->value * 10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$skill->value * 10 . '%'}};">
+			                <span class="sr-only">{{$skill->value * 10}} Complete</span>
 			            </div>
 			            <span class="progress-type">{{$skill->name}}</span>
-			            <span class="progress-completed">60%</span>
+			            <span class="progress-completed">{{$skill->value * 10 . "%"}}</span>
 			        </div>
 			        @endforeach
 				</div>
