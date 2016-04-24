@@ -6,14 +6,9 @@
 
 
 @section('main-content')
-<link rel="stylesheet" type="text/css" href="{{asset('profile/css/normalize.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('profile/css/demo.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('profile/css/tabs.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('profile/css/tabstyles.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('profile/css/circle.css')}}" />
-<script src="{{asset('profile/js/modernizr.custom.js')}}"></script>
-<script src="{{asset('profile/js/cbpFWTabs.js')}}"></script>
+
 <style>
+
 	#profile-data, #hobby{
 		list-style-type: none;
 		font-size: 20px;
@@ -40,8 +35,9 @@
 		font-weight: 800;
 		padding: 3px 10px 2px;
 	}
+
 </style>
-<center><h1>Thông tin chi tiết</h1></center>
+<center><h1>Thông tin chi tiết </h1></center>
 <section>
 	<div class="tabs tabs-style-linetriangle">
 		<nav>
@@ -94,9 +90,21 @@
 				</div>
 				
 			</section>
-			<section id="section-linetriangle-3"><p>3</p></section>
-			<section id="section-linetriangle-4"><p>4</p></section>
-			<section id="section-linetriangle-5"><p>5</p></section>
+			<section id="section-linetriangle-3">
+				<div class="container">
+					<div class="timeline timeline-alternating timeline-collapsing purple-flirt">
+						@foreach($studies as $study)
+						<div class="timeline-block">
+							<div class="timeline-icon"></div>
+								<div class="timeline-content">
+									<h2>{{$study->name}}</h2>	       
+									<div class="timeline-date">{{$study->publication_date}}</div>
+								</div>
+						</div>
+						@endforeach
+					</div>
+				</div>
+			</section>
 		</div><!-- /content -->
 	</div><!-- /tabs -->
 </section>
@@ -106,6 +114,8 @@
 			new CBPFWTabs( el );
 		});
 	})();
+
+
 </script>
 @endsection
 

@@ -22,17 +22,19 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Language', 'Quantity'],
-          ['JavaScript',     11],
-          ['Java',      2],
-          ['C++',  2],
-          ['PHP', 2],
-          ['Ngôn ngữ khác',    7]
+        console
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+        
+            var data = google.visualization.arrayToDataTable([
+            ['Language', 'Quantity'],
+            ['C', <?php echo json_decode($c->count()); ?>],
+            ['JavaScript',     <?php echo json_decode($js->count()); ?>],
+            ['Java',      <?php echo json_decode($java->count()); ?>],
+            ['C++',  <?php echo json_decode($cplus->count()); ?>],
+            ['PHP', <?php echo json_decode($php->count()); ?>],
+            ['Ngôn ngữ khác', <?php echo json_decode($other->count()); ?>]
         ]);
 
         var options = {
@@ -43,6 +45,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
+
       }
     </script>
 
@@ -115,7 +118,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
             <div class="col-lg-4">
                 <img src="{{ asset('/img/home/group.png') }}" alt="">
                 <h3>Nhóm</h3>
-                <p>Thành lập các nhóm để hỗ trợ nhau học tập.</p>
+                <p>Thành lập các nhóm để hỗ trợ nhau học tập. </p>
             </div>
         </div>
         <br>
@@ -201,7 +204,14 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                                 <input type="password" class="form-control" name="password_confirmation">
                             </div>
                         </div>
-  
+                        
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Nhập lại password</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" name="password_confirmation">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

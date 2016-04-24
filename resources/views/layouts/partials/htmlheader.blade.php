@@ -14,6 +14,16 @@
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
+    <link rel="stylesheet" href="{{asset('profile/timeline/css/timeline.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('profile/css/normalize.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('profile/css/demo.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('profile/css/tabs.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('profile/css/tabstyles.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('profile/css/circle.css')}}" />
+    <script src="{{asset('profile/js/modernizr.custom.js')}}"></script>
+    <script src="{{asset('profile/js/cbpFWTabs.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    
     <link href="{{ asset('/css/skins/skin-blue.css') }}" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="{{ asset('/plugins/iCheck/square/blue.css') }}" rel="stylesheet" type="text/css" />
