@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'created_at'
     ];
 
     /**
@@ -42,4 +42,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Hobby');
     }
 
+    public function languageskills()
+    {
+        return $this->hasMany('App\LanguageSkill');
+    }
+
+    public function getCreatedDate(){
+        return $this->attributes['created_at'];
+    }
 }

@@ -63,7 +63,7 @@
                                 <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                                 <p>
                                     {{ Auth::user()->name }}
-                                    <small>Member since Nov. 2012</small>
+                                    <small>Ngày gia nhập {{Auth::user()->created_at->format('d-m-Y')}}</small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->

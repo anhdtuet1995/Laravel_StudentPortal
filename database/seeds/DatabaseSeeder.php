@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 	        'school' => 'UET-VNU',
 	        'major' => 'Công nghệ thông tin',
 	        'public' => 1,
+	        'created_at' => Carbon::now()
 	    ]);
 
         DB::table('skills')->insert([
@@ -42,7 +43,7 @@ class DatabaseSeeder extends Seeder
         	'user_id' => 1
         ]);
 
-        DB::table('skills')->insert([
+        DB::table('languageskills')->insert([
         	'name' => 'English',
         	'value' => 6,
         	'user_id' => 1

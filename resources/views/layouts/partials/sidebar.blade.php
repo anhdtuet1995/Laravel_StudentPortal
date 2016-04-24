@@ -21,11 +21,14 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="active"><a href="{{ url('user') }}"><i class='fa fa-link'></i> <span>Thông tin cá nhân</span></a></li>
+            <li><a href="{{ url('user') }}"><i class='fa fa-link'></i> <span>Tìm nhóm</span></a></li>
             <li class="treeview">
-                <a href="#"><i class='fa fa-link'></i> <span>Nhóm</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-link'></i> <span>Nhóm của bạn</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Tìm nhóm</a></li>
-                    <li><a href="#">Nhóm hiện tại</a></li>
+                    <li><a href="#">Tìm người thêm vào nhóm</a></li>
+                    <li><a href="#">Timeline</a></li>
+                    <li><a href="#">Quản lý thành viên</a></li>
+                    <li><a href="#">Chat nhóm</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

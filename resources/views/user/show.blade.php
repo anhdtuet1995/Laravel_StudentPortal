@@ -72,7 +72,7 @@
 			</section>
 			<section id="section-linetriangle-2">
 				<div class="col-md-6" align="left" style="padding right:50px;">
-					<h2 style="padding-bottom:30px;">Kỹ năng</h2>
+					<h2 style="padding-bottom:30px;">Kỹ năng lập trình</h2>
 					@foreach($skills as $skill)
 					<div class="progress">
 			            <div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="{{$skill->value * 10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$skill->value * 10 . '%'}};">
@@ -82,11 +82,28 @@
 			            <span class="progress-completed">{{$skill->value * 10 . "%"}}</span>
 			        </div>
 			        @endforeach
+					@if($languageskills->count() > 0)
+			        <h2 style="padding-bottom:30px;padding-top:30px;">Kỹ năng ngôn ngữ</h2>
+					@foreach($languageskills as $languageskill)
+					<div class="progress">
+			            <div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="{{$skill->value * 10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$skill->value * 10 . '%'}};">
+			                <span class="sr-only">{{$languageskill->value * 10}} Complete</span>
+			            </div>
+			            <span class="progress-type">{{$languageskill->name}}</span>
+			            <span class="progress-completed">{{$languageskill->value * 10 . "%"}}</span>
+			        </div>
+			        @endforeach
+			        @endif
 				</div>
 				
 				
 				<div class="col-md-6" align="left">
-					<h2>Sở thích</h2>	
+					<h2 style="padding-bottom:30px;">Sở thích</h2>
+					<ul style="list-style-type: none; font-size: 20px;">
+						@foreach($hobbies as $hobby)
+							<li>{{$hobby->name}}</li>
+						@endforeach
+					</ul>	
 				</div>
 				
 			</section>
