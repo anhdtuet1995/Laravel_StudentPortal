@@ -206,13 +206,6 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                         </div>
                         
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Nhập lại password</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Register

@@ -53,6 +53,6 @@ class CreateProfileTable extends Migration
         Schema::drop('skills');
         Schema::drop('hobbies');
         Schema::drop('studies');
-        Schema::drop('users');
+        
     }
 }

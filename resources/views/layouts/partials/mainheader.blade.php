@@ -53,14 +53,22 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                            @if(Auth::user()->avatar != null)
+                            <img src="{{url('/user').'/'.Auth::user()->avatar}}" class="user-image" alt="User Image">
+                            @else
+                            <img src="{{asset('img/default-avatar.png')}}" class="user-image" alt="User Image">
+                            @endif
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                                @if(Auth::user()->avatar != null)
+                                <img src="{{url('/user').'/'.Auth::user()->avatar}}" class="img-circle" alt="User Image">
+                                @else
+                                <img src="{{asset('img/default-avatar.png')}}" class="img-circle" alt="User Image">
+                                @endif
                                 <p>
                                     {{ Auth::user()->name }}
                                     <small>Ngày gia nhập {{Auth::user()->created_at->format('d-m-Y')}}</small>

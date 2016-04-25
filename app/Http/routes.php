@@ -38,6 +38,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::group(['prefix' => 'user'], function () {
-    	Route::resource('/', 'UserController');
+    	Route::get('/', 'UserController@index');
+    	Route::get('/edit', 'UserController@edit');
+    	Route::post('/edit', 'UserController@update');
+    	Route::get('/{avatar}','UserController@getUserImage');
+    	//skill
+    	Route::post('/addSkill', 'UserController@addSkill');
+    	Route::get('/skill/resJson', 'UserController@resSkill');
     });
 });
