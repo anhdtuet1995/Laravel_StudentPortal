@@ -124,9 +124,14 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['prefix' => 'user'], function () {
     	Route::get('/', 'UserController@index');
+    	//tuong tac
+    		
+
+    	//user
     	Route::get('/edit', 'UserController@edit');
     	Route::post('/edit', 'UserController@update');
     	Route::get('/{avatar}','UserController@getUserImage');
+    	
     	//skill
     	Route::post('/addSkill', 'UserController@addSkill');
     	Route::get('/skill/resJson', 'UserController@resSkill');

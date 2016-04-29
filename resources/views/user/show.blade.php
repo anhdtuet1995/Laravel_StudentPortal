@@ -51,9 +51,9 @@
 			<section id="section-linetriangle-1">
 				<div class="col-md-4">
 					@if(Auth::user()->avatar != null)
-					<img src="{{url('/user').'/'.Auth::user()->avatar}}" alt="">
+					<img style="width:200px; height:200px" src="{{url('/user').'/'.Auth::user()->avatar}}" alt="">
 					@else
-					<img src="{{asset('img/default-avatar.png')}}" alt="">
+					<img style="width:200px; height:200px" src="{{asset('img/default-avatar.png')}}" alt="">
 					@endif
 				</div>
 				<div class="col-md-8" align="left">
@@ -62,15 +62,18 @@
 						<li><strong>Email:</strong> {{$user->email}}</li>
 						<li><strong>Giới tính:</strong> 
 							@if($user->gender == 0)
-							Nữ
-							@else
 							Nam
+							@else
+							Nữ
 							@endif
 						</li>
 						<li><strong>Trường học:</strong> {{$user->school}}</li>
 						<li><strong>Chuyên ngành:</strong> {{$user->major}}</li>
 					</ul>
 					
+				</div>
+				<div class="col-md-12" align="middle">
+					<a href="{{url('/user/edit')}}" title=""><button button type="button" class="btn btn-primary" style="font-size:20px;">Sửa thông tin cá nhân</button></a>	
 				</div>
 				
 			</section>

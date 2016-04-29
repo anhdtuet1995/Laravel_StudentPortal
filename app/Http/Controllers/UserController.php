@@ -48,10 +48,17 @@ class UserController extends Controller
 
     public function update(Request $request){
         $user = Auth::user();
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
-        $user->avatar = $file->getFilename().'.'.$extension;
+        $user->name = $request->input('name');
+        $user->school = $request->input('school');
+        $user->gender = $request->input('gender');
+        $user->major = $request->input('major');
+        if($request->file('image') != null){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+            $user->avatar = $file->getFilename().'.'.$extension;
+        }
+        
         $user->save();
         return redirect('user');
     }
@@ -79,7 +86,6 @@ class UserController extends Controller
     public function resSkill(Request $request){
         $id = $request->get('user_id');
         $skill = User::find($id)->skills()->get();
-        $a = "hihi";
         return response()->json($skill);
     }
 

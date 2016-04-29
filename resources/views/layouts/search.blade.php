@@ -16,7 +16,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
 
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-
+    <link rel="stylesheet" href="{{asset('/css/jquery.tag-editor.css')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="{{ asset('/js/smoothscroll.js') }}"></script>
     <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
@@ -190,15 +190,10 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><b>ConnectWF</b></a>
+                <a class="navbar-brand" href="{{url('/')}}"><b>ConnectWF</b></a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#home" class="smoothScroll">Home</a></li>
-                    <li><a href="#desc" class="smoothScroll">Giới thiệu</a></li>
-                    <li><a href="#features" class="smoothScroll">Thống kê</a></li>
-                    <li><a href="{{url('/search')}}" id="searchPerson">Tìm kiếm</a></li>
-                </ul>
+                
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Đăng nhập</a></li>
@@ -342,6 +337,8 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     </div>
     
     <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/jquery.caret.min.js')}}"></script>
+    <script src="{{asset('/js/jquery.tag-editor.js')}}"></script>
     <script>
         function removeDuplicates(arr, prop) {
              var new_arr = [];
