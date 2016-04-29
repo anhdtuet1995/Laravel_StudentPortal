@@ -60,4 +60,14 @@ class User extends Authenticatable
         $str = substr($str, 0, strlen($str)-2);
         return $str;
     }
+
+    public function getHobbies(){
+        $hobby = $this->hobbies()->get();
+        $str = "";
+        foreach($hobby as $s){
+            $str = $str . $s->name . ', ';
+        }
+        $str = substr($str, 0, strlen($str)-2);
+        return $str;
+    }
 }

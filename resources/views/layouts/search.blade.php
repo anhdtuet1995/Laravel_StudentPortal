@@ -22,91 +22,160 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-    .profile_view {
-        margin-bottom: 20px;
-        display: inline-block;
-        width: 100%;
-            -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.3);
+    .member-entry {
+      border: 1px solid #ebebeb;
+      padding: 15px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      -moz-box-shadow: 1px 1px 1px rgba(0, 1, 1, 0.02);
+      -webkit-box-shadow: 1px 1px 1px rgba(0, 1, 1, 0.02);
+      box-shadow: 1px 1px 1px rgba(0, 1, 1, 0.02);
+      -moz-transition: all 300ms ease-in-out;
+      -webkit-transition: all 300ms ease-in-out;
+      -o-transition: all 300ms ease-in-out;
+      transition: all 300ms ease-in-out;
+      -webkit-border-radius: 3px;
+      -webkit-background-clip: padding-box;
+      -moz-border-radius: 3px;
+      -moz-background-clip: padding;
+      border-radius: 3px;
+      background-clip: padding-box;
+      background:#fff;
+        -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.3);
         box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.3);
     }
-    .profile_view:hover {
-        -webkit-box-shadow: 0 14px 12px 0 rgba(0,0,0,0.17),0 20px 40px 0 rgba(0,0,0,0.3);
-        box-shadow: 0 14px 12px 0 rgba(0,0,0,0.17),0 20px 40px 0 rgba(0,0,0,0.3);    
+    .member-entry:before,
+    .member-entry:after {
+      content: " ";
+      display: table;
     }
-    .well.profile_view {
-        padding: 10px 0 0;
+    .member-entry:after {
+      clear: both;
     }
-
-    .well.profile_view .divider {
-        border-top: 1px solid #e5e5e5;
-        padding-top: 5px;
-        margin-top: 5px;
+    .member-entry:hover {
+      background: rgba(235, 235, 235, 0.3);
+      -moz-box-shadow: 1px 1px 1px rgba(0, 1, 1, 0.06);
+      -webkit-box-shadow: 1px 1px 1px rgba(0, 1, 1, 0.06);
+      box-shadow: 1px 1px 1px rgba(0, 1, 1, 0.06);
     }
-
-    .well.profile_view .ratings {
-        margin-bottom: 0;
+    .member-entry .member-img,
+    .member-entry .member-details {
+      float: left;
     }
-
-    .pagination.pagination-split li {
+    .member-entry .member-img {
+      position: relative;
+      display: block;
+      width: 10%;
+    }
+    .member-entry .member-img img {
+      width: 100%;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .member-entry .member-img i {
+      position: absolute;
+      display: block;
+      left: 50%;
+      top: 50%;
+      margin-top: -12.5px;
+      margin-left: -12.5px;
+      color: #FFF;
+      font-size: 25px;
+      zoom: 1;
+      -webkit-opacity: 0;
+      -moz-opacity: 0;
+      opacity: 0;
+      filter: alpha(opacity=0);
+      -moz-transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+      -ms-transform: scale(0.5);
+      -o-transform: scale(0.5);
+      transform: scale(0.5);
+      -moz-transition: all 300ms ease-in-out;
+      -webkit-transition: all 300ms ease-in-out;
+      -o-transition: all 300ms ease-in-out;
+      transition: all 300ms ease-in-out;
+    }
+    .member-entry .member-details {
+      width: 89.9%;
+    }
+    .member-entry .member-details h4 {
+      font-size: 20px;
+      margin-left: 20px;
+    }
+    .member-entry .member-details h4 a {
+      -moz-transition: all 300ms ease-in-out;
+      -webkit-transition: all 300ms ease-in-out;
+      -o-transition: all 300ms ease-in-out;
+      transition: all 300ms ease-in-out;
+    }
+    .member-entry .member-details .info-list {
+      margin-left: 5px;
+    }
+    .member-entry .member-details .info-list > div {
+      margin-top: 5px;
+      font-size: 15px;
+    }
+    .member-entry .member-details .info-list > div a {
+      -moz-transition: all 300ms ease-in-out;
+      -webkit-transition: all 300ms ease-in-out;
+      -o-transition: all 300ms ease-in-out;
+      transition: all 300ms ease-in-out;
+    }
+    @media screen and (max-width: 768px) {
+      .member-entry .member-img {
+        width: 18%;
+      }
+      .member-entry .member-details {
+        width: 81.9%;
+      }
+      .member-entry .member-details h4 {
+        margin-top: 0;
+      }
+    }
+    @media screen and (max-width: 480px) {
+      .member-entry .member-img {
+        width: 100%;
+        float: none;
+        text-align: center;
+        position: relative;
+        background: #f8f8f8;
+        margin-bottom: 15px;
+        -webkit-border-radius: 3px;
+        -webkit-background-clip: padding-box;
+        -moz-border-radius: 3px;
+        -moz-background-clip: padding;
+        border-radius: 3px;
+        background-clip: padding-box;
+      }
+      .member-entry .member-img img {
+        width: auto;
         display: inline-block;
-        margin-right: 3px;
+        -webkit-border-radius: 0;
+        -webkit-background-clip: padding-box;
+        -moz-border-radius: 0;
+        -moz-background-clip: padding;
+        border-radius: 0;
+        background-clip: padding-box;
+      }
+      .member-entry .member-details {
+        width: 100%;
+        float: none;
+      }
+      .member-entry .member-details h4,
+      .member-entry .member-details .info-list {
+        margin-left: 0;
+      }
+      .member-entry .member-details h4 > div,
+      .member-entry .member-details .info-list > div {
+        padding: 0;
+      }
+      .member-entry .member-details .info-list > div {
+        margin-top: 10px;
+      }
     }
 
-    .pagination.pagination-split li a {
-        border-radius: 4px;
-        color: #768399;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-    }
-
-    .well.profile_view {
-        background: #fff;
-    }
-
-    .well.profile_view .bottom {
-        margin-top: -20px;
-        background: #F2F5F7;
-        padding: 9px 0;
-        border-top: 1px solid #E6E9ED;
-    }
-
-    .well.profile_view .left {
-        margin-top: 20px;
-    }
-
-    .well.profile_view .left p {
-        margin-bottom: 3px;
-    }
-
-    .well.profile_view .right {
-        margin-top: 0px;
-        padding: 10px;
-    }
-
-    .well.profile_view .img-circle {
-        border: 1px solid #E6E9ED;
-        padding: 2px;
-    }
-
-    .well.profile_view h2 {
-        margin: 5px 0;
-        font-size:14px;
-        font-weight:bold;
-    }
-
-    .well.profile_view .ratings {
-        text-align: left;
-        font-size: 16px;
-    }
-
-    .well.profile_view .brief {
-        margin: 0;
-        font-weight: 300;
-    }
-
-    .profile_left {
-        background: white;
-    }
 </style>
 </head>
 
@@ -143,7 +212,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     </div>
     
     <div class="container">
-        <h2>Tìm kiếm theo kỹ năng</h2>
+        <h2>Tìm người</h2>
         <form id="form-search" class="form-inline" action="">
             <div class="form-group">
                 <label for="skill">Kỹ năng:</label>
@@ -154,61 +223,42 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                 <input id="hobby" name="hobby" type="text" class="form-control input-lg" placeholder="Sở thích">
             </div>
         </form>
-
-        <div style="padding-top:50px" class="col-md-12 bootstrap snippets">
-            <div class="x_panel">
-                <div class="x_content">
-                    <div id="result" class="row">
-                        <div class="clearfix"></div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
-                            <div class="well profile_view">
-                                <div class="col-sm-12">
-                                    <h4 class="brief"><i>Đào Tuấn Anh</i></h4>
-                                    <div class="left col-xs-7">
-                                        <p><strong>Kỹ năng: </strong> C++, Java </p>
-                                        <p><strong>Sở thích: </strong> Đá bóng, chơi thể thao </p>
-                                        
-                                    </div>
-                                    <div class="right col-xs-5 text-center">
-                                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-circle img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 bottom text-center">
-                                    <div class="col-xs-12 col-sm-6 emphasis">
-                                        <button type="button" class="btn btn-primary btn-xs"> 
-                                            <i class="fa fa-user"></i> View Profile 
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
-                            <div class="well profile_view">
-                                <div class="col-sm-12">
-                                    <h4 class="brief"><i>Đào Tuấn Anh</i></h4>
-                                    <div class="left col-xs-7">
-                                        <p><strong>Kỹ năng: </strong> VS, Da </p>
-                                        <p><strong>Sở thích: </strong> C++ </p>
-                                        
-                                    </div>
-                                    <div class="right col-xs-5 text-center">
-                                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-circle img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 bottom text-center">
-                                    <div class="col-xs-12 col-sm-6 emphasis">
-                                        <button type="button" class="btn btn-primary btn-xs"> 
-                                            <i class="fa fa-user"></i> View Profile 
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="search-result" style="padding-top:30px;padding-bottom:30px;">
+            @foreach($users as $user)
+            <div class="member-entry"> 
+                <a href="#" class="member-img">
+                    @if($user->avatar == null)
+                    <img src="{{asset('img/default-avatar.png')}}" class="img-rounded">
+                    @else
+                    <img src="{{url('get/')."/".$user->avatar}}" class="img-rounded">
+                    @endif 
+                </a> 
+                <div class="member-details"> 
+                    <h4> <a href="#">{{$user->name}}</a> </h4> 
+                    <div class="row info-list">  
+                        <div class="col-sm-12">
+                            @if($user->getSkills())
+                            Kỹ năng: {{$user->getSkills()}}
+                            @else
+                            Kỹ năng: Chưa có
+                            @endif
+                            
+                        </div> 
+                        <div class="clear"></div> 
+                        <div class="col-sm-12"> 
+                            @if($user->getHobbies())
+                            Sở thích: {{$user->getHobbies()}}
+                            @else
+                            Sở thích: Chưa có
+                            @endif
+                        </div> 
+                    </div> 
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
+        
     
 
     <section id="footer" name="footer"></section>
@@ -320,18 +370,17 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     success: function(response){
                         var test = removeDuplicates(response, "id");
                         console.log(test);
-                        $('.row').empty();
-                        $('.row').append('<div class="clearfix"></div>');
+                        $('.search-result').empty();
                         $.each(test, function(index, userObj){
-                            var str = '<div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown"><div class="well profile_view"><div class="col-sm-12"><h4 class="brief"><i>'+ userObj.name +'</i></h4><div class="left col-xs-7"><p><strong>Kỹ năng: </strong> '+ userObj.skill +' </p><p><strong>Sở thích: </strong> Đá bóng, chơi thể thao </p></div><div class="right col-xs-5 text-center">';
+                            var str = '<div class="member-entry">';
                             if(userObj.avatar != ""){
-                                str += '<img src="{{url('get')."/"}}'+userObj.avatar+'" alt="" class="img-circle img-responsive">';
+                                str += '<a href="#" class="member-img"><img src="{{url('get')."/"}}'+userObj.avatar+'" class="img-rounded"></a>';
                             }
                             else{
-                                str += '<img src="{{asset('img/default-avatar.png')}}" alt="" class="img-circle img-responsive">';
+                                str += '<a href="#" class="member-img"><img src="{{asset('img/default-avatar.png')}}" class="img-rounded"></a>';
                             }
-                            str += '</div></div><div class="col-xs-12 bottom text-center"><div class="col-xs-12 col-sm-6 emphasis"><button type="button" class="btn btn-primary btn-xs"><i class="fa fa-user"></i> View Profile</button></div></div></div></div>'
-                            $('.row').append(str);
+                            str += '<div class="member-details"><h4><a href="#">'+userObj.name+'</a></h4><div class="row info-list"><div class="col-sm-12">Kỹ năng: '+userObj.skill+'</div><div class="clear"></div><div class="col-sm-12">Sở thích: '+userObj.hobby+'</div></div></div></div>';
+                            $('.search-result').append(str);
                         })
 
                     }
