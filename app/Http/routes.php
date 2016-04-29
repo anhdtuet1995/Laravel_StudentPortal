@@ -1,6 +1,10 @@
 <?php
 
 use App\Skill;
+use Illuminate\Http\Request;
+use App\User;
+use App\Hobby;
+use Illuminate\Http\Response;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -35,6 +39,41 @@ Route::group(['middleware' => 'web'], function () {
 	    ]);
 	});
 
+	Route::get('/search', function () {
+	    return view('layouts.search');
+	});
+
+	Route::get('/get/{filename}', function($filename){
+		$file = Storage::disk('local')->get($filename);
+        return new Response($file, 200);
+	});
+
+
+	Route::get('/test', function(Request $request){
+		if($request->input('skill') == null && $request->input('hobby') == null){
+			$users = User::all();
+			return response()->json($users);
+		}
+		elseif ($request->input('skill') != null && $request->input('hobby') == null) {
+			$users = DB::table('users')
+					->join('skills', 'users.id', '=', 'skills.user_id')
+					->select('users.*', 'skills.name as skill')
+					->where('skills.name', 'like', '%'.$request->input('skill').'%')
+					->get();	
+			foreach($users as $user){
+				$user->skill = User::find($user->id)->getSkills(); 
+			}
+			return response()->json($users);
+		}
+		elseif ($request->input('skill') == null && $request->input('hobby') != null) {
+			return "skill null";
+		}
+		else{
+			return "not null";
+		}
+	});
+
+	//after sign in
     Route::auth();
 
     Route::group(['prefix' => 'user'], function () {

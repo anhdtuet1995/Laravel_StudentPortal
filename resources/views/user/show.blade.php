@@ -190,5 +190,3 @@
 	});
 </script>
 @endsection
-
-<div class="progress"><div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="{{$skill->value * 10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$skill->value * 10 . '%'}};"><span class="sr-only">{{$skill->value * 10}} Complete</span></div><span class="progress-type">{{$skill->name}}</span><span class="progress-completed">{{$skill->value * 10 . "%"}}</span></div>

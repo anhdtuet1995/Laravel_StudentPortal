@@ -50,4 +50,14 @@ class User extends Authenticatable
     public function getCreatedDate(){
         return $this->attributes['created_at'];
     }
+
+    public function getSkills(){
+        $skill = $this->skills()->get();
+        $str = "";
+        foreach($skill as $s){
+            $str = $str . $s->name . ', ';
+        }
+        $str = substr($str, 0, strlen($str)-2);
+        return $str;
+    }
 }
