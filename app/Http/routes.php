@@ -125,15 +125,22 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['prefix' => 'user'], function () {
     	Route::get('/', 'UserController@index');
     	//tuong tac
-    		
+
 
     	//user
     	Route::get('/edit', 'UserController@edit');
     	Route::post('/edit', 'UserController@update');
     	Route::get('/{avatar}','UserController@getUserImage');
     	
+    	Route::group(['prefix' => 'skill'], function(){
+    		Route::delete('/{id}', 'SkillController@destroy');
+    		Route::get('/resJson', 'SkillController@resSkill');
+    		Route::post('/add', 'SkillController@addSkill');
+    		
+    	});
+
     	//skill
-    	Route::post('/addSkill', 'UserController@addSkill');
-    	Route::get('/skill/resJson', 'UserController@resSkill');
+    	
+    	
     });
 });

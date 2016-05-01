@@ -69,24 +69,5 @@ class UserController extends Controller
         return new Response($file, 200);
     }
 
-    protected function createSkill(array $data)
-    {
-        return Skill::create([
-            'name' => $data['skill'],
-            'value' => $data['mark'],
-            'user_id' => Auth::user()->id,
-        ]);
-    }
-
-    public function addSkill(Request $request){
-        $this->createSkill($request->all());
-        return response()->json();
-    }
-
-    public function resSkill(Request $request){
-        $id = $request->get('user_id');
-        $skill = User::find($id)->skills()->get();
-        return response()->json($skill);
-    }
-
-}
+    
+}   

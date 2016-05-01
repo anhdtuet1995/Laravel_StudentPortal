@@ -80,23 +80,39 @@
 			<section id="section-linetriangle-2">
 				<div class="col-md-6" align="left" style="padding right:50px;">
 					<meta name="_token" content="{{ csrf_token() }}" />   
-					<form id="form-add-skill" action="{{url('user/addSkill')}}" method="post" accept-charset="utf-8">
+					<form id="form-add-skill" action="{{url('user/skill/add')}}" method="post" accept-charset="utf-8">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="text" name="skill" id="skill">
 						<input type="text" name="mark" id="mark">
 						<input type="submit" name="submit" value="Thêm kỹ năng">
 					</form>
-					<h2 style="padding-bottom:30px;">Kỹ năng lập trình</h2>
-					<div class="progress-skill">
-					@foreach($skills as $skill)
-					<div class="progress">
-			            <div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="{{$skill->value * 10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$skill->value * 10 . '%'}};">
-			                <span class="sr-only">{{$skill->value * 10}} Complete</span>
-			            </div>
-			            <span class="progress-type">{{$skill->name}}</span>
-			            <span class="progress-completed">{{$skill->value * 10 . "%"}}</span>
-			        </div>
-			        @endforeach
+					<div class="col-md-12" style="padding-bottom:20px">
+						<h2 style="padding-bottom:20px">Kỹ năng lập trình</h2>
+						<button type="button" class="btn btn-primary">Thêm kỹ năng</button>
+					</div>
+					
+					<div class="col-md-12">
+						<div class="progress-skill">
+						@foreach($skills as $skill)
+						<div id="progress-skill-{{$skill->id}}">
+							<div class="col-md-1">
+								<div id="deleteTheSkill['{{$skill->id}}']">
+					                <form method="POST" action="{{url('user/skill')."/".$skill->id}}" accept-charset="UTF-8" id="formDeleteSkill"><input name="_method" type="hidden" value="DELETE"><input type="hidden" value="{{ Session::token() }}" name="_token">
+					                    <button style="width:20px;height:20px" type="submit" class="btn btn-danger btn-xs deleteSkill" id="btnDeleteSkill" data-id="{{$skill->id}}"><i class="fa fa-trash-o"></i></button>
+					               </form>
+					           </div>
+							</div>
+							<div class="col-md-11">
+								<div class="progress">	
+						            <div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="{{$skill->value * 10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$skill->value * 10 . '%'}};">
+						                <span class="sr-only">{{$skill->value * 10}} Complete</span>
+						            </div>
+						            <span class="progress-type">{{$skill->name}}</span>
+						            <span class="progress-completed">{{$skill->value * 10 . "%"}}</span>
+						        </div>
+							</div>
+						</div>
+				        @endforeach
 			        </div>
 					@if($languageskills->count() > 0)
 			        <h2 style="padding-bottom:30px;padding-top:30px;">Kỹ năng ngôn ngữ</h2>
@@ -111,7 +127,7 @@
 			        @endforeach
 			        @endif
 				</div>
-				
+				</div>
 				
 				<div class="col-md-6" align="left">
 					<h2 style="padding-bottom:30px;">Sở thích</h2>
@@ -121,7 +137,7 @@
 						@endforeach
 					</ul>	
 				</div>
-				
+			
 			</section>
 			<section id="section-linetriangle-3">
 				<div class="container">
@@ -154,7 +170,31 @@
 		});
 	})();
 
+	$(document).ready(function(){
+		$('.deleteSkill').on('click', function(e) {
+		    var inputData = $('#formDeleteSkill').serialize();
+
+		    var dataId = $(this).attr('data-id');
+
+		    $.ajax({
+		        url: '{{ url('/user/skill') }}' + '/' + dataId,
+		        type: 'DELETE',
+		        data: inputData,
+		        success: function( msg ) {
+		            // $('#process-a-Skill-['+msg.skill_id+']').hide();
+		            console.log(msg.skill_id);
+		            $("#progress-skill-"+msg.skill_id).hide();
+		        },
+		        error: function( data ) {
+		            console.log("Xóa bị lỗi");
+		        }
+		    });
+
+		    return false;
+		});
+	});
 	$(function(){
+		
 		$(document).on('submit', '#form-add-skill', function(e){
 			
 			$.ajaxSetup({
@@ -185,7 +225,7 @@
 	        	console.log(data);
 	        	$('.progress-skill').empty();
 	        	$.each(data, function(index, skillObj){
-                $('.progress-skill').append('<div class="progress"><div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="'+(skillObj.value * 10)+'" aria-valuemin="0" aria-valuemax="100" style="width: '+ (skillObj.value * 10) +'%"><span class="sr-only">'+(skillObj.value * 10)+' Complete</span></div><span class="progress-type">'+(skillObj.name)+'</span><span class="progress-completed">'+(skillObj.value * 10)+'%</span></div>');
+                $('.progress-skill').append('<div class="col-md-1"><div id="deleteTheSkill"><form method="POST" action="{{url('user/skill')."/"}}'+skillObj.id+'" accept-charset="UTF-8" id="formDeleteSkill"><input name="_method" type="hidden" value="DELETE"><input type="hidden" value="{{ Session::token() }}" name="_token"><button style="width:20px;height:20px" type="submit" class="btn btn-danger btn-xs deleteSkill" id="btnDeleteSkill" data-id="'+skillObj.id+'"><i class="fa fa-trash-o"></i></button></form></div></div><div class="col-md-11"><div class="progress"><div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="'+(skillObj.value * 10)+'" aria-valuemin="0" aria-valuemax="100" style="width: '+ (skillObj.value * 10) +'%"><span class="sr-only">'+(skillObj.value * 10)+' Complete</span></div><span class="progress-type">'+(skillObj.name)+'</span><span class="progress-completed">'+(skillObj.value * 10)+'%</span></div></div>');
             });
 	        });
 		

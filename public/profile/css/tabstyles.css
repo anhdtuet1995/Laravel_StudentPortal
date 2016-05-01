@@ -27,8 +27,9 @@
 .tabs-style-bar nav ul li a span {
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	font-weight: 500;
-	font-size: 0.6em;
+	font-weight: 700
+	;
+	font-size: 2em;
 }
 
 .tabs-style-bar nav ul li.tab-current a {
@@ -160,7 +161,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	font-size: 1em;
+	font-size: 1.5em;
 }
 
 .tabs-style-linetriangle nav li.tab-current a:after, 
