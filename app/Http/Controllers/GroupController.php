@@ -12,10 +12,29 @@ use App\User;
 class GroupController extends Controller
 {
     public function index(){
-    	return view('group.index');
+    	$groups = Auth::user()->getGroupNotJoined();
+    	return view('group.index')->with([
+    		'groups' => $groups
+    	]);
     }
 
     public function create(){
     	return view('group.create');
+    }
+
+    public function store(Request $request){
+
+    	$name = $request->input('name');
+    	$description = $request->input('description');
+    	$github = $request->input('github');
+    	$leader = Auth::user()->id;
+
+    	Auth::user()->groups()->create([
+    		'name' => $name,
+    		'description' => $description,
+    		'github' => $github,
+    		'leader' => $leader
+    	]);
+    	return redirect('/group');
     }
 }

@@ -24,7 +24,8 @@
       		</div>
     	</div>
   	</div>
-  	<form role="form">
+  	<form action="{{url('group/store')}}" method="post" role="form">
+  		<input type="hidden" value="{{ Session::token() }}" name="_token">
 	  	<div class="form-group">
 		    <label for="name">Tên nhóm</label>
 		    <input name="name" type="text" class="form-control" id="name">

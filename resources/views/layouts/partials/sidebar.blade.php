@@ -35,10 +35,17 @@
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>Nhóm của bạn</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Tìm người thêm vào nhóm</a></li>
-                    <li><a href="#">Timeline</a></li>
-                    <li><a href="#">Quản lý thành viên</a></li>
-                    <li><a href="#">Chat nhóm</a></li>
+                    @foreach(Auth::user()->getAllGroupAdmin() as $group)
+                    <li><a href="#">{{$group->name}}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class='fa fa-link'></i> <span>Các nhóm khác</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    @foreach(Auth::user()->getOtherGroup() as $group)
+                    <li><a href="#">{{$group->name}}</a></li>
+                    @endforeach
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

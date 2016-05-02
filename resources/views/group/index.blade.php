@@ -158,255 +158,71 @@
 
 </style>
 <div id="content" class="content container-fluid" style="min-height: 682px;">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="page-header">
-        <h2>Các nhóm dự án</h2>
+  	<div class="row">
+    	<div class="col-lg-12">
+     		<div class="page-header">
+        		<h2>Các nhóm dự án</h2>
 
-      </div>
-    </div>
-  </div>
-  <form>
-    <div class="projects-search">
-      <input type="text" class="search-input" placeholder="Search projects">
-      <button class="btn search-btn waves waves-effect waves-float" type="button"><i class="fa fa-search"></i></button>
-    </div>
-  </form>
-  <button type="button" class="btn btn-primary" style="font-size:15px; ">Tạo nhóm mới</button>
-  <div class="row" style="padding-top:15px">
-    <div class="col-lg-12">
-      <div class="content-box project-wrapper">
-        <div class="project-item">
-          <div class="status-desktop pull-left">
-            <span class="active">Hoạt động</span>
-          </div>
-          <div class="project-box white-bg pull-left">
-            <div class="status-mobile pull-left">
-              <span class="active">Hoạt động</span>
-            </div>
-            <div class="project-tools mobile-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
+      		</div>
+    	</div>
+  	</div>
+  	<form>
+    	<div class="projects-search">
+      		<input type="text" class="search-input" placeholder="Search projects">
+      	<button class="btn search-btn waves waves-effect waves-float" type="button"><i class="fa fa-search"></i></button>
+    	</div>
+  	</form>
+  	<a href="{{url('group/create')}}"><button type="button" class="btn btn-primary" style="font-size:15px; ">Tạo nhóm mới</button></a>
+  	<div class="row" style="padding-top:15px">
+    	<div class="col-lg-12">
+      		<div class="content-box project-wrapper">
+      			@foreach($groups as $group)
+        		<div class="project-item">
+          			<div class="status-desktop pull-left">
+	            		<span class="active">Hoạt động</span>
+	          		</div>
+	          		<div class="project-box white-bg pull-left">
+	            		<div class="status-mobile pull-left">
+	              			<span class="active">Hoạt động</span>
+	            		</div>
+		            	<div class="project-tools mobile-tools text-right pull-left">
+		              		<a href="#"><i class="fa fa-eye"></i></a>
+		              		<a href="#"><i class="fa fa-pencil"></i></a>
+		              		<a href="#"><i class="fa fa-close"></i></a>
+		            	</div>
 
-            <div class="project-name pull-left">
-              <div class="name">Contract with Zelden Company</div>
-              <div class="created">Created <span>14.08.2014</span></div>
-            </div>
-            <div class="project-progress pull-left">
-              <span class="task-title">Completion with: <span>40%</span></span>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
-                </div>
-              </div>
-            </div>
+		            	<div class="project-name pull-left">
+		              		<div class="name">{{$group->name}}</div>
+		              		<div class="created">Created <span>14.08.2014</span></div>
+		            	</div>
+		            	
+		            	<div class="project-progress pull-left">
+		              		<span class="task-title">Completion with: <span>40%</span></span>
+		              		<div class="progress">
+		                		<div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+		                		</div>
+		              		</div>
+		            	</div>
 
-            <div class="pull-left text-center">
-              <div class="resp-avatars">
-                <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" class="img-circle">
-                <img src="http://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" class="img-circle">
-                <img src="http://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar" class="img-circle">
-              </div>
-            </div>
-            <div class="project-tools desktop-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-            <div class="clearfix"></div>
-          </div>
+		            	<div class="pull-left text-center">
+		              		<div class="resp-avatars">
+		              			@foreach($group->users()->get() as $user)
+		                		<img src="{{url('user')."/".$user->avatar}}" alt="avatar" class="img-circle">
+		                		@endforeach
+		              		</div>
+		            	</div>
+		            	<div class="project-tools desktop-tools text-right pull-left">
+		              		<a href="#"><button type="button" class="btn btn-danger">Xem</button></a>
+		              		<a href="#"><button type="button" class="btn btn-primary">Tham gia</button></a>
+		
+		            	</div>
+		            	<div class="clearfix"></div>
+	          		</div>
 
-        </div>
-
-        <div class="project-item">
-
-          <div class="status-desktop pull-left">
-            <span class="active">Hoạt động</span>
-          </div>
-
-
-          <div class="project-box white-bg pull-left">
-
-            <div class="status-mobile pull-left">
-              <span class="active">Hoạt động</span>
-            </div>
-            <div class="project-tools mobile-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-
-            <div class="project-name pull-left">
-              <div class="name">Develop chat app</div>
-              <div class="created">Created <span>14.08.2014</span></div>
-            </div>
-            <div class="project-progress pull-left">
-              <span class="task-title">Stage completed: <span>35%</span></span>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;">
-                </div>
-                
-              </div>
-            </div>
-
-            <div class="pull-left text-center">
-              <div class="resp-avatars">
-                <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" class="img-circle">
-                <img src="http://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" class="img-circle">
-                <img src="http://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar" class="img-circle">
-              </div>
-            </div>
-            <div class="project-tools desktop-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-
-        <div class="project-item">
-
-          <div class="status-desktop pull-left">
-            <span class="active">Hoạt động</span>
-          </div>
-
-
-          <div class="project-box white-bg pull-left">
-
-            <div class="status-mobile pull-left">
-              <span class="active">Hoạt động</span>
-            </div>
-            <div class="project-tools mobile-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-
-            <div class="project-name pull-left">
-              <div class="name">Develop Android app</div>
-              <div class="created">Created <span>14.08.2014</span></div>
-            </div>
-            <div class="project-progress pull-left">
-              <span class="task-title">Completion with: <span>49%</span></span>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-info" role="progressbar" aria-valuenow="49" aria-valuemin="0" aria-valuemax="100" style="width: 49%;">
-                </div>
-              </div>
-            </div>
-
-            <div class="pull-left text-center">
-              <div class="resp-avatars">
-                <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" class="img-circle">
-                <img src="http://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" class="img-circle">
-              </div>
-            </div>
-            <div class="project-tools desktop-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-
-        <div class="project-item">
-
-          <div class="status-desktop pull-left">
-            <span class="unactive">Hoàn thiện</span>
-          </div>
-
-
-          <div class="project-box white-bg pull-left">
-
-            <div class="status-mobile pull-left">
-              <span class="unactive">Hoàn thiện</span>
-            </div>
-            <div class="project-tools mobile-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-
-            <div class="project-name pull-left">
-              <div class="name">Contract with support</div>
-              <div class="created">Created <span>14.08.2014</span></div>
-            </div>
-            <div class="project-progress pull-left">
-              <span class="task-title">Completion with: <span>100%</span></span>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                </div>
-              </div>
-            </div>
-
-            <div class="pull-left text-center">
-              <div class="resp-avatars">
-                <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" class="img-circle">
-              </div>
-            </div>
-            <div class="project-tools desktop-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-
-        <div class="project-item">
-
-          <div class="status-desktop pull-left">
-            <span class="active">Hoạt động</span>
-          </div>
-
-
-          <div class="project-box white-bg pull-left">
-
-            <div class="status-mobile pull-left">
-              <span class="active">Hoạt động</span>
-            </div>
-            <div class="project-tools mobile-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-
-            <div class="project-name pull-left">
-              <div class="name">New product line</div>
-              <div class="created">Created <span>14.08.2014</span></div>
-            </div>
-            <div class="project-progress pull-left">
-              <span class="task-title">Completion with: <span>85%</span></span>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
-                </div>
-              </div>
-            </div>
-
-            <div class="pull-left text-center">
-              <div class="resp-avatars">
-                <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" class="img-circle">
-                <img src="http://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" class="img-circle">
-                <img src="http://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar" class="img-circle">
-              </div>
-            </div>
-            <div class="project-tools desktop-tools text-right pull-left">
-              <a href="#"><i class="fa fa-eye"></i></a>
-              <a href="#"><i class="fa fa-pencil"></i></a>
-              <a href="#"><i class="fa fa-close"></i></a>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
+        		</div>
+				@endforeach
+      		</div>
+    	</div>
+  	</div>
 </div>
 @endsection

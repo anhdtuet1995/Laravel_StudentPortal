@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Skill;
 use App\Study;
 use App\Hobby;
+use App\Group;
 
 class User extends Authenticatable
 {
@@ -73,5 +74,28 @@ class User extends Authenticatable
 
     public function groups(){
         return $this->belongsToMany('App\Group');
+    }
+
+    public function getAllGroupAdmin(){
+        $group = Group::where('leader', '=', $this->id)->get();
+        return $group;
+    }
+
+    public function getOtherGroup(){
+        $group = $this->groups()->where('leader', '!=', $this->id)->get();
+        return $group;
+    }
+
+    public function getGroupNotJoined(){
+        $group = $this->groups()->lists('id');
+        $groups = Group::whereNotIn('id', $group)->get();   
+        return $groups;
+    }
+
+    public function isLeaderGroup($id){
+        if($this->id == Group::find($id)->leader){
+            return true;
+        }
+        else return false;
     }
 }
