@@ -70,4 +70,8 @@ class User extends Authenticatable
         $str = substr($str, 0, strlen($str)-2);
         return $str;
     }
+
+    public function groups(){
+        return $this->belongsToMany('App\Group');
+    }
 }

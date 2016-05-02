@@ -144,9 +144,10 @@ Route::group(['middleware' => 'web'], function () {
     		Route::get('/resJson', 'HobbyController@resHobby');
     		Route::post('/add', 'HobbyController@addHobby');
     		
-    	});
-    	//skill
-    	
-    	
+    	});	
+    });
+
+    Route::group(['prefix' => 'group'], function () {
+    	Route::get('/', 'GroupController@index');
     });
 });
