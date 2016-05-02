@@ -31,7 +31,7 @@
                     <li><a href="{{url('user/edit')}}">Sửa thông tin cá nhân</a></li>
                 </ul>
             </li>
-            <li><a href="{{ url('user') }}"><i class='fa fa-link'></i> <span>Tìm nhóm</span></a></li>
+            <li><a href="{{ url('group') }}"><i class='fa fa-link'></i> <span>Tìm nhóm</span></a></li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>Nhóm của bạn</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">

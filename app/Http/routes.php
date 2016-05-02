@@ -149,5 +149,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['prefix' => 'group'], function () {
     	Route::get('/', 'GroupController@index');
+    	Route::get('/create', 'GroupController@create');
+    	Route::post('/store', 'GroupController@store');
     });
 });
