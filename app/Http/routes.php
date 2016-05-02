@@ -139,6 +139,12 @@ Route::group(['middleware' => 'web'], function () {
     		
     	});
 
+    	Route::group(['prefix' => 'hobby'], function(){
+    		Route::delete('/{id}', 'HobbyController@destroy');
+    		Route::get('/resJson', 'HobbyController@resHobby');
+    		Route::post('/add', 'HobbyController@addHobby');
+    		
+    	});
     	//skill
     	
     	

@@ -80,15 +80,10 @@
 			<section id="section-linetriangle-2">
 				<div class="col-md-6" align="left" style="padding right:50px;">
 					<meta name="_token" content="{{ csrf_token() }}" />   
-					<form id="form-add-skill" action="{{url('user/skill/add')}}" method="post" accept-charset="utf-8">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<input type="text" name="skill" id="skill">
-						<input type="text" name="mark" id="mark">
-						<input type="submit" name="submit" value="Thêm kỹ năng">
-					</form>
+					
 					<div class="col-md-12" style="padding-bottom:20px">
 						<h2 style="padding-bottom:20px">Kỹ năng lập trình</h2>
-						<button type="button" class="btn btn-primary">Thêm kỹ năng</button>
+						<button id="addSkill" type="button" class="btn btn-primary">Thêm kỹ năng</button>
 					</div>
 					
 					<div class="col-md-12">
@@ -114,26 +109,27 @@
 						</div>
 				        @endforeach
 			        </div>
-					@if($languageskills->count() > 0)
-			        <h2 style="padding-bottom:30px;padding-top:30px;">Kỹ năng ngôn ngữ</h2>
-					@foreach($languageskills as $languageskill)
-					<div class="progress">
-			            <div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="{{$skill->value * 10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$skill->value * 10 . '%'}};">
-			                <span class="sr-only">{{$languageskill->value * 10}} Complete</span>
-			            </div>
-			            <span class="progress-type">{{$languageskill->name}}</span>
-			            <span class="progress-completed">{{$languageskill->value * 10 . "%"}}</span>
-			        </div>
-			        @endforeach
-			        @endif
 				</div>
 				</div>
 				
 				<div class="col-md-6" align="left">
-					<h2 style="padding-bottom:30px;">Sở thích</h2>
-					<ul style="list-style-type: none; font-size: 20px;">
+					<div class="col-md-12" style="padding-bottom:20px;">
+						<h2 style="padding-bottom:20px;">Sở thích</h2>
+						<button id="addHobby" type="button" class="btn btn-primary">Thêm sở thích</button>
+					</div>
+					
+					<ul id="list-hobbies" style="list-style-type: none; font-size: 20px;">
 						@foreach($hobbies as $hobby)
-							<li>{{$hobby->name}}</li>
+							<li id="hobby-{{$hobby->id}}">
+								<div class="col-md-1">
+									<form method="POST" action="{{url('user/hobby')."/".$hobby->id}}" accept-charset="UTF-8" id="formDeleteHobby"><input name="_method" type="hidden" value="DELETE"><input type="hidden" value="{{ Session::token() }}" name="_token">
+					                    <button style="width:20px;height:20px" type="submit" class="btn btn-danger btn-xs deleteHobby" id="btnDeleteHobby" data-id="{{$hobby->id}}"><i class="fa fa-trash-o"></i></button>
+							        </form>
+							    </div>
+							    <div class="col-md-11">
+								{{$hobby->name}}
+								</div>
+							</li>
 						@endforeach
 					</ul>	
 				</div>
@@ -157,6 +153,82 @@
 		</div><!-- /content -->
 	</div><!-- /tabs -->
 </section>
+<!-- Modal -->
+    <div class="modal fade" id="modalSkill" tabindex="-1" role="dialog" aria-labelledby="modalSkill" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="modalSkillLabel">Thêm kỹ năng</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-add-skill" class="form-horizontal" role="form" method="POST" action="{{url('user/skill/add')}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Kỹ năng</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="skill" id="skill">
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Tự đánh giá mức độ (Thang điểm 10)</label>
+                            <div class="col-md-6">
+                                <input type="number" class="form-control" name="mark" id="mark" min="1" max="10">
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Thêm
+                                </button>
+                            </div>
+                        </div>
+                    </form>                       
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalHobby" tabindex="-1" role="dialog" aria-labelledby="modalHobby" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="modalHobbyLabel">Thêm kỹ năng</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-add-hobby" class="form-horizontal" role="form" method="POST" action="{{url('user/hobby/add')}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Loại sở thích</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="hobby" id="hobby">
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Thêm
+                                </button>
+                            </div>
+                        </div>
+                    </form>                       
+
+                </div>
+            </div>
+        </div>
+    </div>
 <script>
 	function autoRefresh1()
 	{
@@ -192,9 +264,38 @@
 
 		    return false;
 		});
+
+		$('.deleteHobby').on('click', function(e) {
+		    var inputData = $('#formDeleteHobby').serialize();
+
+		    var dataId = $(this).attr('data-id');
+
+		    $.ajax({
+		        url: '{{ url('/user/hobby') }}' + '/' + dataId,
+		        type: 'DELETE',
+		        data: inputData,
+		        success: function( msg ) {
+		            // $('#process-a-Skill-['+msg.skill_id+']').hide();
+		            console.log(msg.hobby_id);
+		            $("#hobby-"+msg.hobby_id).hide();
+		        },
+		        error: function( data ) {
+		            console.log("Xóa bị lỗi");
+		        }
+		    });
+
+		    return false;
+		});
 	});
 	$(function(){
-		
+		$('#addSkill').click(function() {
+            $('#modalSkill').modal();  
+        });
+
+		$('#addHobby').click(function() {
+			$('#modalHobby').modal();
+		});
+
 		$(document).on('submit', '#form-add-skill', function(e){
 			
 			$.ajaxSetup({
@@ -215,6 +316,7 @@
 	        
 	        .done(function(data) {
 	            alert("Thêm kỹ năng thành công!");
+	            $('#modalSkill').modal('hide');
 	        })   
 	        
 	        .fail(function(data) {
@@ -229,6 +331,42 @@
             });
 	        });
 		
+		});
+
+		$(document).on('submit', '#form-add-hobby', function(e){
+			
+			$.ajaxSetup({
+		        header:$('meta[name="_token"]').attr('content')
+		    })
+		    console.log(e);
+			e.preventDefault();
+			
+			$.ajax({
+	            method: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            data: $(this).serialize(),
+	            dataType: "json",
+	            success: function (data) {
+		            console.log(data);
+		        }
+	        })
+	        
+	        .done(function(data) {
+	            alert("Thêm sở thích thành công!");
+	            $('#modalHobby').modal('hide');
+	        })   
+	        
+	        .fail(function(data) {
+	            alert("Thêm sở thích thất bại!");
+	        });
+			
+			$.get('{{url('user/hobby/resJson')}}'+'?user_id=' + {{Auth::user()->id}}, function(data){
+	        	console.log(data);
+	        	$('#list-hobbies').empty();
+	        	$.each(data, function(index, hobbyObj){
+                $('#list-hobbies').append('<li id="hobby-'+hobbyObj.id+'"><div class="col-md-1"><form method="POST" action="{{url('user/hobby')."/"}}'+hobbyObj.id+'" accept-charset="UTF-8" id="formDeleteHobby"><input name="_method" type="hidden" value="DELETE"><input type="hidden" value="{{ Session::token() }}" name="_token"><button style="width:20px;height:20px" type="submit" class="btn btn-danger btn-xs deleteHobby" id="btnDeleteHobby" data-id="'+hobbyObj.id+'"><i class="fa fa-trash-o"></i></button></form></div><div class="col-md-11">'+hobbyObj.name+'</div></li>');
+            	});
+			});
 		});
 	});
 </script>

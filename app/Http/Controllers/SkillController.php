@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\User;
 use App\Skill;
 use Auth;
+
 class SkillController extends Controller
 {
 	protected function createSkill(array $data)
