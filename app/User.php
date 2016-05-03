@@ -92,10 +92,20 @@ class User extends Authenticatable
         return $groups;
     }
 
-    public function isLeaderGroup($id){
-        if($this->id == Group::find($id)->leader){
+    public function isLeaderGroup($group_id){
+        if($this->id == Group::find($group_id)->leader){
             return true;
         }
         else return false;
+    }
+
+    public function isMemberGroup($group_id){
+        if(!$this->isLeaderGroup($group_id) && 
+            sizeof(Group::find($group_id)->users()->where('id', '=', $this->id)->get()) > 0 ){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

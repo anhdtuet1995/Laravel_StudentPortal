@@ -36,7 +36,7 @@
                 <a href="#"><i class='fa fa-link'></i> <span>Nhóm của bạn</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     @foreach(Auth::user()->getAllGroupAdmin() as $group)
-                    <li><a href="#">{{$group->name}}</a></li>
+                    <li><a href="{{url('user/group')."/".$group->id."/panel"}}">{{$group->name}}</a></li>
                     @endforeach
                 </ul>
             </li>
@@ -44,7 +44,7 @@
                 <a href="#"><i class='fa fa-link'></i> <span>Các nhóm khác</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     @foreach(Auth::user()->getOtherGroup() as $group)
-                    <li><a href="#">{{$group->name}}</a></li>
+                    <li><a href="{{url('user/group')."/".$group->id."/panel"}}">{{$group->name}}</a></li>
                     @endforeach
                 </ul>
             </li>

@@ -142,14 +142,21 @@ Route::group(['middleware' => 'web'], function () {
     	Route::group(['prefix' => 'hobby'], function(){
     		Route::delete('/{id}', 'HobbyController@destroy');
     		Route::get('/resJson', 'HobbyController@resHobby');
-    		Route::post('/add', 'HobbyController@addHobby');
-    		
+    		Route::post('/add', 'HobbyController@addHobby');	
     	});	
+
+    	Route::group(['prefix' => 'group'], function(){
+    		Route::get('/{id}/panel', 'AdminGroupController@showPanel');
+    		Route::get('/{id}/panel/edit', 'AdminGroupController@edit');
+    		Route::post('/{id}/panel/update', 'AdminGroupController@update');
+    		Route::get('/{id}/panel/member', 'AdminGroupController@member');
+    	});
     });
 
     Route::group(['prefix' => 'group'], function () {
     	Route::get('/', 'GroupController@index');
     	Route::get('/create', 'GroupController@create');
     	Route::post('/store', 'GroupController@store');
+    	Route::get('/{id}', 'GroupController@show');
     });
 });

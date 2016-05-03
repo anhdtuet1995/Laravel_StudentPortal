@@ -13,6 +13,14 @@ class Group extends Model
         return $this->belongsToMany('App\User');
     }
 
+    public function addUser(User $user){
+    	return $this->users()->attach($user->id);
+    }
+
+    public function removeUser(User $user){
+    	return $this->users()->detach($user->id);
+    }
+
     public function getLeader(){
     	$user= User::find($this->leader);
     	return $user;
@@ -30,5 +38,14 @@ class Group extends Model
     		return true;
     	}
     	else return false;
+    }
+
+    public function isMember($user_id){
+    	if($this->leader != $user_id && $this->hasUser($user_id)){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
     }
 }

@@ -212,7 +212,7 @@
 		              		</div>
 		            	</div>
 		            	<div class="project-tools desktop-tools text-right pull-left">
-		              		<a href="#"><button type="button" class="btn btn-danger">Xem</button></a>
+		              		<a href="{{url('/group')."/". $group->id}}"><button type="button" class="btn btn-danger">Xem</button></a>
 		              		<a href="#"><button type="button" class="btn btn-primary">Tham gia</button></a>
 		
 		            	</div>

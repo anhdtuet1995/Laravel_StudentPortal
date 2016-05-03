@@ -37,4 +37,13 @@ class GroupController extends Controller
     	]);
     	return redirect('/group');
     }
+
+    public function show($id){
+    	if(!Group::find($id)->hasUser(Auth::user()->id)){
+    		$group = Group::find($id);
+    		return view('group.show')->with([
+    			'group' => $group,
+    		]);
+    	}
+    }
 }
