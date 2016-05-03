@@ -131,6 +131,7 @@ Route::group(['middleware' => 'web'], function () {
     	Route::get('/edit', 'UserController@edit');
     	Route::post('/edit', 'UserController@update');
     	Route::get('/{avatar}','UserController@getUserImage');
+    	Route::get('/profile/{id}', 'UserController@getProfile');
     	
     	Route::group(['prefix' => 'skill'], function(){
     		Route::delete('/{id}', 'SkillController@destroy');

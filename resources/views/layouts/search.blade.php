@@ -229,7 +229,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     @endif 
                 </a> 
                 <div class="member-details"> 
-                    <h4> <a href="#">{{$user->name}}</a> </h4> 
+                    <h4> <a href="{{url('user/profile')."/$user->id"}}">{{$user->name}}</a> </h4> 
                     <div class="row info-list">  
                         <div class="col-sm-12">
                             @if($user->getSkills())

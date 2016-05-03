@@ -225,4 +225,11 @@
     	</div>
   	</div>
 </div>
+
+<script>
+    if($('li').hasClass('active')){
+        $('li').removeClass('active');
+        $('#search-group').addClass('active');
+    };
+</script>
 @endsection

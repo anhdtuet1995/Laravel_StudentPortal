@@ -24,27 +24,27 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="treeview">
+            <li id="menu-profile" class="treeview active">
                 <a href="#"><i class='fa fa-link'></i> <span>Quản lý thông tin cá nhân</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="{{ url('user') }}">Xem thông tin cá nhân</a></li>
-                    <li><a href="{{url('user/edit')}}">Sửa thông tin cá nhân</a></li>
+                    <li id="show-profile" class="active"><a href="{{ url('user') }}">Xem thông tin cá nhân</a></li>
+                    <li id="edit-profile"><a href="{{url('user/edit')}}">Sửa thông tin cá nhân</a></li>
                 </ul>
             </li>
-            <li><a href="{{ url('group') }}"><i class='fa fa-link'></i> <span>Tìm nhóm</span></a></li>
-            <li class="treeview">
+            <li id="search-group"><a href="{{ url('group') }}"><i class='fa fa-link'></i> <span>Tìm nhóm</span></a></li>
+            <li id="menu-my-group" class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>Nhóm của bạn</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     @foreach(Auth::user()->getAllGroupAdmin() as $group)
-                    <li><a href="{{url('user/group')."/".$group->id."/panel"}}">{{$group->name}}</a></li>
+                    <li id="my-group-{{$group->id}}"><a href="{{url('user/group')."/".$group->id."/panel"}}">{{$group->name}}</a></li>
                     @endforeach
                 </ul>
             </li>
-            <li class="treeview">
+            <li id="menu-other-group" class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>Các nhóm khác</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     @foreach(Auth::user()->getOtherGroup() as $group)
-                    <li><a href="{{url('user/group')."/".$group->id."/panel"}}">{{$group->name}}</a></li>
+                    <li id="other-group-{{$group->id}}"><a href="{{url('user/group')."/".$group->id."/panel"}}">{{$group->name}}</a></li>
                     @endforeach
                 </ul>
             </li>

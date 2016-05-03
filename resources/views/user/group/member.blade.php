@@ -45,4 +45,6 @@
 		@endforeach
 	</tbody>
 </table>
+
+<h1>Quản lý yêu cầu tham gia nhóm</h1>
 @endsection

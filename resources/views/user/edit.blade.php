@@ -80,6 +80,12 @@
 	        };
 	        reader.readAsDataURL(this.files[0]);
 	    };
+
+	    if($('li').hasClass('active')){
+	    	$('li').removeClass('active');
+	    	$('#menu-profile').addClass('active');
+	    	$('#edit-profile').addClass('active');
+	    };
 	});
 </script>
 @endsection

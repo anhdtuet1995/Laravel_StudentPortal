@@ -21,4 +21,22 @@
 	<li><a href="#">Quản lý dự án</a></li>
 	<li><a href="#">Chat nhóm</a></li>
 @endif
+
+@if(Auth::user()->isLeaderGroup($group->id))
+<script>
+	if($('li').hasClass('active')){
+    	$('li').removeClass('active');
+    	$('#menu-my-group').addClass('active');
+    	$('#my-group-{{$group->id}}').addClass('active');
+    };
+</script>
+@elseif(Auth::user()->isMemberGroup($group->id))
+<script>
+	if($('li').hasClass('active')){
+    	$('li').removeClass('active');
+    	$('#menu-other-group').addClass('active');
+    	$('#other-group-{{$group->id}}').addClass('active');
+    };
+</script>
+@endif
 @endsection
