@@ -6,12 +6,15 @@
 
 
 @section('main-content')
+<h1>Quản lý thành viên</h1>
+<button type="button" class="btn btn-primary">Tìm kiếm thành viên</button>
 <table class="table">
-	<caption>table title and/or explanatory text</caption>
+
 	<thead>
 		<tr>
 			<th>Họ tên</th>
 			<th>Email</th>
+			<th>Chức vụ trong nhóm</th>
 			<th>Tác vụ</th>
 		</tr>
 	</thead>
@@ -20,7 +23,24 @@
 		<tr>
 			<td>{{$user->name}}</td>
 			<td>{{$user->email}}</td>
-			<td><button type="button" class="btn btn-danger">Xóa</button></td>
+			<td>
+			@if($user->isMemberGroup($group->id))
+			Thành viên
+			@else
+			Trưởng nhóm
+			@endif	
+			</td>
+			<td>
+			@if($user->isMemberGroup($group->id))
+			{{ Form::open(['url' => 'user/group/' . $group->id . '/panel/member/' . $user->id, 'method' => 'DELETE']) }}
+            {{ Form::submit('Xóa', ['class' => 'btn btn-danger'])}}
+            {{ Form::close() }}
+			
+			{{ Form::open(['url' => 'user/group/' . $group->id . '/panel/member/change/' . $user->id, 'method' => 'POST']) }}
+            {{ Form::submit('Nhượng quyền', ['class' => 'btn btn-primary'])}}
+            {{ Form::close() }}
+            @endif
+			</td>
 		</tr>
 		@endforeach
 	</tbody>

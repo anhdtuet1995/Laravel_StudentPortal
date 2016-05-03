@@ -42,9 +42,26 @@ class AdminGroupController extends Controller
 
 	public function member($id){
 		$users = Group::find($id)->users()->get();
-
+		$group = Group::find($id);
 		return view('user.group.member')->with([
-			'users' => $users
+			'users' => $users,
+			'group' => $group
 		]);
+	}
+
+	public function deleteMember($id, $user_id){
+		if(Auth::user()->isLeaderGroup($id)){
+			Group::find($id)->removeUser(User::find($user_id));
+			return redirect('user/group/'.$id.'/panel/member');
+		}
+	}
+
+	public function changeLeader($id, $user_id){
+		if(Auth::user()->isLeaderGroup($id)){
+			$group = Group::find($id);
+			$group->leader = $user_id;
+			$group->save();
+			return redirect('user/group/'.$id.'/panel/');
+		}
 	}
 }

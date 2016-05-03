@@ -150,6 +150,8 @@ Route::group(['middleware' => 'web'], function () {
     		Route::get('/{id}/panel/edit', 'AdminGroupController@edit');
     		Route::post('/{id}/panel/update', 'AdminGroupController@update');
     		Route::get('/{id}/panel/member', 'AdminGroupController@member');
+    		Route::delete('/{id}/panel/member/{user_id}', 'AdminGroupController@deleteMember');
+    		Route::post('/{id}/panel/member/change/{user_id}', 'AdminGroupController@changeLeader');
     	});
     });
 
