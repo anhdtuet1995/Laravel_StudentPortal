@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
 use App\Skill;
+use Notifynder;
 
 class UserController extends Controller
 {
@@ -75,5 +76,26 @@ class UserController extends Controller
         return view('user.profile')->with([
             'user' => $user
         ]);
+    }
+
+    public function requestToGroup($group_id){
+        Notifynder::category('request.user.to.group')
+                    ->from(Auth::user()->id)
+                    ->to(Group::find($group_id)->getLeader()->id)
+                    ->url('http://yoururl.com')
+                    ->extra(compact('group_id'))
+                    ->send();
+        return redirect('group');
+    }
+
+    public function acceptToGroup($group_id){
+        Group::find($group_id)->addUser(Auth::user());
+        Notifynder::category('accept.user.to.group')
+                    ->from(Auth::user()->id)
+                    ->to(Group::find($group_id)->getLeader()->id)
+                    ->url('http://yoururl.com')
+                    ->extra(compact('group_id'))
+                    ->send();
+        return redirect('/user/group/'.$group_id.'/panel');
     }
 }   

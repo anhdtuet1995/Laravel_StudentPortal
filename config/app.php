@@ -149,6 +149,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Acacha\AdminLTETemplateLaravel\Providers\AdminLTETemplateServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Fenos\Notifynder\NotifynderServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -206,6 +207,7 @@ return [
         'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Notifynder'=>Fenos\Notifynder\Facades\Notifynder::class,
     ],
 
 ];

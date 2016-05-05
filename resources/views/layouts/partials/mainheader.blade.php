@@ -1,3 +1,4 @@
+<?php use App\Group; ?>
 <!-- Main Header -->
 <header class="main-header">
 
@@ -25,18 +26,23 @@
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning">{{Auth::user()->countNotificationsNotRead()}}</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
+                        <li class="header">Bạn có {{Auth::user()->countNotificationsNotRead()}} thông báo mới</li>
                         <li>
                             <!-- Inner Menu: contains the notifications -->
                             <ul class="menu">
+                                @foreach(Auth::user()->getNotificationsNotRead() as $notification)
+                                <?php  
+                                $group = json_decode($notification->extra, true);
+                                ?>
                                 <li><!-- start notification -->
                                     <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        <i class="fa fa-users text-aqua"></i> {{Group::find($group['group_id'])->name." ".$notification->text}}
                                     </a>
                                 </li><!-- end notification -->
+                                @endforeach
                             </ul>
                         </li>
                         <li class="footer"><a href="#">View all</a></li>

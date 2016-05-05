@@ -64,5 +64,26 @@ class DatabaseSeeder extends Seeder
         	'publication_date' => '2015-06-26',
         	'user_id' => 1
         ]);
+
+        DB::table('notification_categories')->insert([
+            'name' => 'request.user.to.group',
+            'text' => '{from.name} muốn tham gia vào nhóm'
+        ]);
+        
+        DB::table('notification_categories')->insert([
+            'name' => 'accept.group.to.user',
+            'text' => 'Yêu cầu tham gia nhóm đã được chấp nhận'
+        ]);
+
+        DB::table('notification_categories')->insert([
+            'name' => 'request.group.to.user',
+            'text' => 'Nhóm muốn mời bạn tham gia',
+        ]);
+
+        DB::table('notification_categories')->insert([
+            'name' => 'accept.user.to.group',
+            'text' => '{from.name} đã tham gia nhóm'
+        ]);
+        
     }
 }

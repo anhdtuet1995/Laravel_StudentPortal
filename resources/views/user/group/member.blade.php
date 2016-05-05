@@ -7,7 +7,7 @@
 
 @section('main-content')
 <h1>Quản lý thành viên</h1>
-<button type="button" class="btn btn-primary">Tìm kiếm thành viên</button>
+<a href="{{url('user/group/')."/".$group->id."/panel/member/search"}}"><button type="button" class="btn btn-primary">Tìm kiếm thành viên</button></a>
 <table class="table">
 
 	<thead>

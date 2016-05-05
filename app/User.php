@@ -7,9 +7,11 @@ use App\Skill;
 use App\Study;
 use App\Hobby;
 use App\Group;
+use Fenos\Notifynder\Notifable;
 
 class User extends Authenticatable
 {
+    use Notifable;
     /**
      * The attributes that are mass assignable.
      *
