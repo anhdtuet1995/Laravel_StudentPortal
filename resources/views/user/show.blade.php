@@ -141,12 +141,14 @@
 					<div id="list-studies" class="timeline timeline-alternating timeline-collapsing purple-flirt">
 
 						@foreach($studies as $study)
-						<div class="timeline-block">
+						<div id="study-{{$study->id}}" class="timeline-block">
 							<div class="timeline-icon"></div>
 								<div class="timeline-content">
 									<h2>{{$study->name}}</h2>
 									<p>{{$study->description}}</p>
-									<button id="deleteStudy" type="button" class="btn btn-danger">Xóa</button>	       
+									<form method="POST" action="{{url('user/study')."/".$study->id}}" accept-charset="UTF-8" id="formDeleteStudy"><input name="_method" type="hidden" value="DELETE"><input type="hidden" value="{{ Session::token() }}" name="_token">
+										<button id="deleteStudy" type="submit" class="btn btn-danger" id="btnDeleteStudy" data-id="{{$study->id}}">Xóa</button>	
+									</form>       
 									<div class="timeline-date">{{$study->publication_date}}</div>
 								</div>
 						</div>
@@ -329,6 +331,28 @@
 		            // $('#process-a-Skill-['+msg.skill_id+']').hide();
 		            console.log(msg.hobby_id);
 		            $("#hobby-"+msg.hobby_id).hide();
+		        },
+		        error: function( data ) {
+		            console.log("Xóa bị lỗi");
+		        }
+		    });
+
+		    return false;
+		});
+
+		$('#deleteStudy').on('click', function(e) {
+		    var inputData = $('#formDeleteStudy').serialize();
+
+		    var dataId = $(this).attr('data-id');
+
+		    $.ajax({
+		        url: '{{ url('/user/study') }}' + '/' + dataId,
+		        type: 'DELETE',
+		        data: inputData,
+		        success: function( msg ) {
+		            // $('#process-a-Skill-['+msg.skill_id+']').hide();
+		            console.log(msg.study_id);
+		            $("#study-"+msg.study_id).hide();
 		        },
 		        error: function( data ) {
 		            console.log("Xóa bị lỗi");
