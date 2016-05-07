@@ -10,6 +10,7 @@ use App\User;
 use App\Group;
 use DB;
 use Notifynder;
+use Fenos\Notifynder\Models\Notification;
 
 class AdminGroupController extends Controller
 {
@@ -165,9 +166,12 @@ class AdminGroupController extends Controller
 	    }
     }
 
-    public function acceptToUser($id, $user_id){
+    public function acceptToUser($id, $user_id, $noti_id){
     	if(Auth::user()->isLeaderGroup($id)){
     		$group_id = $id;
+    		$noti = Notification::find($noti_id);
+    		$noti->read=0;
+    		$noti->save();
 	        Group::find($group_id)->addUser(User::find($user_id));
 	        Notifynder::category('accept.group.to.user')
 	                    ->from(Auth::user()->id)

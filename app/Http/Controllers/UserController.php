@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
 use App\Skill;
 use Notifynder;
+use App\Group;
+use Fenos\Notifynder\Models\Notification;
 
 class UserController extends Controller
 {
@@ -88,8 +90,11 @@ class UserController extends Controller
         return redirect('group');
     }
 
-    public function acceptToGroup($group_id){
+    public function acceptToGroup($group_id, $noti_id){
         Group::find($group_id)->addUser(Auth::user());
+        $noti = Notification::find($noti_id);
+        $noti->read = 1;
+        $noti->save();
         Notifynder::category('accept.user.to.group')
                     ->from(Auth::user()->id)
                     ->to(Group::find($group_id)->getLeader()->id)
@@ -97,5 +102,12 @@ class UserController extends Controller
                     ->extra(compact('group_id'))
                     ->send();
         return redirect('/user/group/'.$group_id.'/panel');
+    }
+
+    public function deleteNotification($noti_id){
+        $noti = Notification::find($noti_id);
+        $noti->read = 1;
+        $noti->save();
+        return redirect('user/');
     }
 }   

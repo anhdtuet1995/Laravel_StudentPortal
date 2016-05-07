@@ -8,6 +8,7 @@ use App\Study;
 use App\Hobby;
 use App\Group;
 use Fenos\Notifynder\Notifable;
+use Fenos\Notifynder\Models\Notification;
 
 class User extends Authenticatable
 {
@@ -109,5 +110,9 @@ class User extends Authenticatable
         else{
             return false;
         }
+    }
+
+    public function notifications(){
+        return $this->hasMany('Fenos\Notifynder\Models\Notification', 'to_id');
     }
 }

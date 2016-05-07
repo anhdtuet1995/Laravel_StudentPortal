@@ -66,21 +66,25 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('notification_categories')->insert([
+            'id' => 1,
             'name' => 'request.user.to.group',
             'text' => '{from.name} muốn tham gia vào nhóm'
         ]);
         
         DB::table('notification_categories')->insert([
+            'id' => 2,
             'name' => 'accept.group.to.user',
             'text' => 'Yêu cầu tham gia nhóm đã được chấp nhận'
         ]);
 
         DB::table('notification_categories')->insert([
+            'id' => 3,
             'name' => 'request.group.to.user',
             'text' => 'Nhóm muốn mời bạn tham gia',
         ]);
 
         DB::table('notification_categories')->insert([
+            'id' => 4,
             'name' => 'accept.user.to.group',
             'text' => '{from.name} đã tham gia nhóm'
         ]);

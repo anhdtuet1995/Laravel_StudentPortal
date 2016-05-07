@@ -132,8 +132,9 @@ Route::group(['middleware' => 'web'], function () {
     	Route::post('/edit', 'UserController@update');
     	Route::get('/{avatar}','UserController@getUserImage');
     	Route::get('/profile/{id}', 'UserController@getProfile');
-    	Route::get('/request/{group_id}/', 'AdminGroupController@requestToUser');
-    	Route::get('/accept/{group_id}', 'AdminGroupController@acceptToUser');
+    	Route::get('/request/{group_id}/', 'UserController@requestToGroup');
+    	Route::get('/accept/{group_id}/{noti_id}', 'UserController@acceptToGroup');
+    	Route::get('/notification/delete/{noti_id}', 'UserController@deleteNotification');
 
     	Route::group(['prefix' => 'skill'], function(){
     		Route::delete('/{id}', 'SkillController@destroy');
@@ -158,7 +159,7 @@ Route::group(['middleware' => 'web'], function () {
     		Route::get('/{id}/panel/member/search', 'AdminGroupController@searchMember');
     		Route::get('/{id}/panel/member/filter', 'AdminGroupController@resultSearch');
     		Route::get('/{id}/panel/member/request/{user_id}', 'AdminGroupController@requestToUser');
-    		Route::get('/{id}/panel/member/accept/{user_id}', 'AdminGroupController@acceptToUser');
+    		Route::get('/{id}/panel/member/accept/{user_id}/{noti_id}', 'AdminGroupController@acceptToUser');
     	});
     });
 

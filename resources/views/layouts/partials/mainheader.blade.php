@@ -26,26 +26,45 @@
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">{{Auth::user()->countNotificationsNotRead()}}</span>
+                        <span class="label label-warning">{{Auth::user()->notifications()->whereIn('category_id', array(2, 3))->where('read', 0)->count()}}</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">Bạn có {{Auth::user()->countNotificationsNotRead()}} thông báo mới</li>
+                        <li class="header">Bạn có {{Auth::user()->notifications()->whereIn('category_id', array(2, 3))->where('read', 0)->count()}} thông báo mới</li>
                         <li>
                             <!-- Inner Menu: contains the notifications -->
                             <ul class="menu">
-                                @foreach(Auth::user()->getNotificationsNotRead() as $notification)
+                                @foreach(Auth::user()->notifications()->whereIn('category_id', array(2, 3))->where('read', 0)->get() as $notification)
                                 <?php  
                                 $group = json_decode($notification->extra, true);
                                 ?>
+                                @if($notification->category_id == 3)
                                 <li><!-- start notification -->
                                     <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> {{Group::find($group['group_id'])->name." ".$notification->text}}
+                                        <i class="fa fa-users text-aqua"></i>  {{"Nhóm " . Group::find($group['group_id'])->name." muốn mời bạn tham gia"}}
+                                        
                                     </a>
+                                    <center>
+                                        <a href="{{url('user/profile/')."/".$notification->from_id}}"><button type="button" class="btn btn-info">Xem thông tin</button></a>
+                                        <a href="{{url('user/accept')."/".$group['group_id']."/".$notification->id}}"><button type="button" class="btn btn-primary">Đồng ý</button></a>
+                                        <a href="{{url('user/notification/delete')."/".$notification->id}}"><button type="button" class="btn btn-danger">Xóa</button></a>    
+                                    </center>
+                                    
                                 </li><!-- end notification -->
+                                @elseif($notification->category_id == 2)
+                                <li><!-- start notification -->
+                                    <a href="#">
+                                        <i class="fa fa-users text-aqua"></i> {{"Yêu cầu tham gia nhóm " .Group::find($group['group_id'])->name . " của bạn đã được chấp nhận"}}
+                                        
+                                    </a>
+                                    <center>
+                                        <a href="{{url('user/notification/delete')."/".$notification->id}}"><button type="button" class="btn btn-danger">Xóa</button></a>    
+                                    </center>
+                                    
+                                </li><!-- end notification -->
+                                @endif
                                 @endforeach
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
                     </ul>
                 </li>
                 <!-- Tasks Menu -->
