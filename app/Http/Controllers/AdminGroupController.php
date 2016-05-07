@@ -183,5 +183,9 @@ class AdminGroupController extends Controller
 	    }
     }
 
+    public function getTimeline($id){
+    	$group = Group::find($id);
+    	return view('user.group.timeline', compact('group'));
+    }
     
 }

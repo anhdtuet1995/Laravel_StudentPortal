@@ -12,4 +12,12 @@ class Skill extends Model
     public function user(){
     	return $this->belongsTo('App\User');
     }
+
+    public function scopeFilterSkill($query,array $skill){
+    	foreach($skill as $s){
+    		$query->where('name', 'like', '%'.$s.'%');
+    	}
+
+    	return $query->get();
+    }
 }

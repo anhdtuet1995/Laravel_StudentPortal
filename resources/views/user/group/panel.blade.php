@@ -9,17 +9,15 @@
 @if(Auth::user()->isLeaderGroup($group->id))
 <ul>
 	<li><a href="{{url('user/group')."/".$group->id."/panel/edit"}}">Thông tin nhóm</a></li>
-	<li><a href="#">Timeline</a></li>
-	<li><a href="#">Chat nhóm</a></li>
+	<li><a href="{{url('user/group'."/".$group->id."/panel/timeline")}}">Timeline</a></li>
 	<li><a href="{{url('user/group')."/".$group->id."/panel/member"}}">Quản lý thành viên</a></li>
 	<li><a href="#">Quản lý dự án</a></li>
 	<li><a href="#">Cài đặt</a></li>
 </ul>
 @elseif(Auth::user()->isMemberGroup($group->id))
 	<li><a href="#">Thông tin nhóm</a></li>
-	<li><a href="#">Timeline</a></li>
+	<li><a href="{{url('user/group'."/".$group->id."/panel/timeline")}}">Timeline</a></li>
 	<li><a href="#">Quản lý dự án</a></li>
-	<li><a href="#">Chat nhóm</a></li>
 @endif
 
 @if(Auth::user()->isLeaderGroup($group->id))

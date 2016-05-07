@@ -160,6 +160,7 @@ Route::group(['middleware' => 'web'], function () {
     		Route::get('/{id}/panel/member/filter', 'AdminGroupController@resultSearch');
     		Route::get('/{id}/panel/member/request/{user_id}', 'AdminGroupController@requestToUser');
     		Route::get('/{id}/panel/member/accept/{user_id}/{noti_id}', 'AdminGroupController@acceptToUser');
+    		Route::get('/{id}/panel/timeline', 'AdminGroupController@getTimeline');
     	});
     });
 

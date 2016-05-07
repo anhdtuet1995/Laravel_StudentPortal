@@ -393,7 +393,7 @@
                             SỞ THÍCH
                             <div class="line"></div>
                         </div>
-                        <div id="modal-skill" class="hobby">
+                        <div id="modal-hobby" class="hobby">
                             
                         </div>
                     </div>
