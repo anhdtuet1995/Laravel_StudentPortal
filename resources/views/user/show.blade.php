@@ -137,12 +137,16 @@
 			</section>
 			<section id="section-linetriangle-3">
 				<div class="container">
-					<div class="timeline timeline-alternating timeline-collapsing purple-flirt">
+					<button id="addStudy" type="button" class="btn btn-primary">Thêm công trình nghiên cứu</button>
+					<div id="list-studies" class="timeline timeline-alternating timeline-collapsing purple-flirt">
+
 						@foreach($studies as $study)
 						<div class="timeline-block">
 							<div class="timeline-icon"></div>
 								<div class="timeline-content">
-									<h2>{{$study->name}}</h2>	       
+									<h2>{{$study->name}}</h2>
+									<p>{{$study->description}}</p>
+									<button id="deleteStudy" type="button" class="btn btn-danger">Xóa</button>	       
 									<div class="timeline-date">{{$study->publication_date}}</div>
 								</div>
 						</div>
@@ -229,6 +233,53 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalStudy" tabindex="-1" role="dialog" aria-labelledby="modalStudy" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="modalStudyLabel">Thêm kỹ năng</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-add-study" class="form-horizontal" role="form" method="POST" action="{{url('user/study/add')}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Tên công trình nghiên cứu</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="study-name" id="study-name">
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Mô tả về công trình</label>
+                            <div class="col-md-6">
+                                <textarea name="study-description" rows="5" class="form-control"></textarea>
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label class="col-md-4 control-label">Ngày công bố</label>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" name="study-date" id="study-date">
+                                <small class="help-block"></small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Thêm
+                                </button>
+                            </div>
+                        </div>
+                    </form>                       
+
+                </div>
+            </div>
+        </div>
+    </div>
 <script>
 	function autoRefresh1()
 	{
@@ -294,6 +345,10 @@
 
 		$('#addHobby').click(function() {
 			$('#modalHobby').modal();
+		});
+
+		$('#addStudy').click(function() {
+			$('#modalStudy').modal();
 		});
 
 		$(document).on('submit', '#form-add-skill', function(e){
@@ -368,6 +423,43 @@
             	});
 			});
 		});
+
+		$(document).on('submit', '#form-add-study', function(e){
+			
+			$.ajaxSetup({
+		        header:$('meta[name="_token"]').attr('content')
+		    })
+		    console.log(e);
+			e.preventDefault();
+			
+			$.ajax({
+	            method: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            data: $(this).serialize(),
+	            dataType: "json",
+	            success: function (data) {
+		            console.log(data);
+		        }
+	        })
+	        
+	        .done(function(data) {
+	            alert("Thêm công trình nghiên cứu thành công!");
+	            $('#modalHobby').modal('hide');
+	        })   
+	        
+	        .fail(function(data) {
+	            alert("Thêm công trình nghiên cứu thất bại!");
+	        });
+			
+			$.get('{{url('user/study/resJson')}}'+'?user_id=' + {{Auth::user()->id}}, function(data){
+	        	console.log(data);
+	        	$('#list-studies').empty();
+	        	$.each(data, function(index, studyObj){
+                $('#list-studies').append('<div class="timeline-block"><div class="timeline-icon"></div><div class="timeline-content"><h2>'+studyObj.name+'</h2><p>'+studyObj.description+'</p><button id="deleteStudy" type="button" class="btn btn-danger">Xóa</button><div class="timeline-date">'+studyObj.publication_date+'</div></div></div>');
+            	});
+			});
+		});
 	});
 </script>
 @endsection
+

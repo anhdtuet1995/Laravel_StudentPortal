@@ -321,33 +321,29 @@
 		</div>
 		
 		<!-- BEGIN NEW TICKET -->
-		<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#newIssue">New Issue</button>
+		<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#newIssue">Tạo bài đăng mới</button>
 		<div class="modal fade" id="newIssue" tabindex="-1" role="dialog" aria-labelledby="newIssue" aria-hidden="true">
 			<div class="modal-wrapper">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header bg-blue">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title"><i class="fa fa-pencil"></i> Create New Issue</h4>
+							<h4 class="modal-title"><i class="fa fa-pencil"></i>Tạo bài đăng mới</h4>
 						</div>
-						<form action="#" method="post">
+						<form id="form-add-post" action="" method="post">
+							<meta name="_token" content="{!! csrf_token() !!}" /> 
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="modal-body">
 								<div class="form-group">
-									<input name="subject" type="text" class="form-control" placeholder="Subject">
+									<input name="subject" id="subject" type="text" class="form-control" placeholder="Subject">
 								</div>
 								<div class="form-group">
-									<input name="department" type="text" class="form-control" placeholder="Department">
-								</div>
-								<div class="form-group">
-									<textarea name="message" class="form-control" placeholder="Please detail your issue or question" style="height: 120px;"></textarea>
-								</div>
-								<div class="form-group">
-									<input type="file" name="attachment">
+									<textarea id="content" name="content" class="form-control" placeholder="Điền câu hỏi vào đây" style="height: 120px;"></textarea>
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Discard</button>
-								<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> Create</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Bỏ qua</button>
+								<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> Tạo</button>
 							</div>
 						</form>
 					</div>
@@ -362,15 +358,17 @@
 			<!-- BEGIN TICKET CONTENT -->
 			<div class="col-md-12">
 				<ul class="list-group fa-padding">
-					<li class="list-group-item" data-toggle="modal" data-target="#issue">
+					@foreach($posts as $post)
+					<li class="list-group-item" id="list-issue-{{$post->id}}">
 						<div class="media">
 							<i class="fa fa-cog pull-left"></i>
 							<div class="media-body">
-								<strong>Add drag and drop config import closes</strong> <span class="label label-danger">IMPORTANT</span><span class="number pull-right"># 13698</span>
-								<p class="info">Opened by <a href="#">jwilliams</a> 5 hours ago <i class="fa fa-comments"></i> <a href="#">2 comments</a></p>
+								<strong>{{$post->subject}}</strong>
+								<p class="info">Gửi bởi <a href="#">{{$post->user()->first()->name}}</a><i class="fa fa-comments"></i> <a href="#">{{$post->comments()->count()}} comments</a></p>
 							</div>
 						</div>
 					</li>
+					@endforeach
 				</ul>
 				
 				<!-- BEGIN DETAIL TICKET -->
@@ -380,30 +378,43 @@
 							<div class="modal-content">
 								<div class="modal-header bg-blue">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									<h4 class="modal-title"><i class="fa fa-cog"></i> Add drag and drop config import closes</h4>
+									<h4 class="modal-title"><i class="fa fa-cog"></i><div id="modal-subject-name"> Add drag and drop config import closes</h4>
 								</div>
 								<form action="#" method="post">
 									<div class="modal-body">
 										<div class="row">
 											<div class="col-md-2">
-												<img src="assets/img/user/avatar01.png" class="img-circle" alt="" width="50">
+												<img id="modal-avatar-question" src="assets/img/user/avatar01.png" class="img-circle" alt="" width="50">
 											</div>
-											<div class="col-md-10">
-												<p>Issue <strong>#13698</strong> opened by <a href="#">jqilliams</a> 5 hours ago</p>
+											<div class="col-md-10" id="modal-question">
+												<p>Issue tạo bởi <a href="#">jqilliams</a></p>
 												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 												<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 											</div>
 										</div>
 										<div class="row support-content-comment">
-											<div class="col-md-2">
-												<img src="assets/img/user/avatar02.png" class="img-circle" alt="" width="50">
-											</div>
-											<div class="col-md-10">
-												<p>Posted by <a href="#">ehernandez</a> on 16/06/2014 at 14:12</p>
-												<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<a href="#"><span class="fa fa-reply"></span> &nbsp;Post a reply</a>
+											<div id="modal-answer">
+												<div class="col-md-2">
+													<img src="assets/img/user/avatar02.png" class="img-circle" alt="" width="50">
+												</div>
+												<div class="col-md-10">
+													<p>Đăng bởi <a href="#">ehernandez</a> on 16/06/2014 at 14:12</p>
+													<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+													
+												</div>	
 											</div>
 										</div>
+										<div id="modal-reply" style="padding-top:20px">
+											<form id="form-reply" role="form" action="#" method="post" accept-charset="utf-8">
+												<input type="hidden" name="_token" value="{{ csrf_token() }}">
+												<div class="form-group">
+													<textarea id="reply" name="content" class="form-control" placeholder="Điền câu hỏi vào đây" style="height: 120px;" rows="5"></textarea>
+												</div>
+												<button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i> Reply</button>
+											</form>	
+										</div>
+										
+										
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
@@ -437,4 +448,100 @@
     };
 </script>
 @endif
+
+<script>
+	@foreach($posts as $post)
+	$('#list-issue-{{$post->id}}').click(function(event) {
+		$('#issue').modal();
+		$('#modal-subject-name').empty();
+		$('#modal-subject-name').append('{{$post->subject}}');
+		$('#modal-avatar-question').attr('src', '{{url('/user/')."/".$post->user()->first()->avatar}}');
+		$('#modal-question').empty();
+		$('#modal-question').append('<p>{{$post->subject}} tạo bởi <a href="#">{{$post->user()->first()->name}}</a></p><p>{{$post->content}}</p>');
+		$('#modal-answer').empty();
+		@foreach($post->comments()->get() as $comment)
+		$('#modal-answer').append('<div class="col-md-2"><img src="{{url('/user/')."/".$comment->user()->first()->avatar}}" class="img-circle" alt="" width="50"></div><div class="col-md-10"><p>Đăng bởi <a href="#">{{$comment->user()->first()->name}}</a> </p><p>{{$comment->content}}</p>')
+		@endforeach
+		$('#modal-reply').empty();
+		$('#modal-reply').append('<form id="form-reply" role="form" action="{{url('/user/group'."/".$group->id."/panel/timeline/post/".$post->id."/reply")}}" method="post" accept-charset="utf-8"><input type="hidden" name="_token" value="{{ csrf_token() }}"><div class="form-group"><textarea id="reply" name="content" class="form-control" placeholder="Điền câu hỏi vào đây" style="height: 120px;" rows="5"></textarea></div><button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i> Reply</button></form>');
+		
+	});
+	@endforeach
+	$(document).on('submit', '#form-add-post', function(e){
+		$.ajaxSetup({
+	        header:$('meta[name="_token"]').attr('content')
+	    })
+	    
+	    console.log(e);
+		e.preventDefault();
+		
+		$.ajax({
+            method: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function (data) {
+	            console.log(data);
+	        }
+        })
+        
+        .done(function(data) {
+            alert("Thêm bài đăng thành công!");
+            $('#newIssue').modal('hide');
+            location.reload();
+        })   
+        
+        .fail(function(data) {
+            alert("Thêm bài đăng thất bại!");
+        });
+
+        // $.get('{{url('user/skill/resJson')}}'+'?user_id=' + {{Auth::user()->id}}, function(data){
+        // 	console.log(data);
+        // 	$('.progress-skill').empty();
+        // 	$.each(data, function(index, skillObj){
+        //     $('.progress-skill').append('<div class="col-md-1"><div id="deleteTheSkill"><form method="POST" action="{{url('user/skill')."/"}}'+skillObj.id+'" accept-charset="UTF-8" id="formDeleteSkill"><input name="_method" type="hidden" value="DELETE"><input type="hidden" value="{{ Session::token() }}" name="_token"><button style="width:20px;height:20px" type="submit" class="btn btn-danger btn-xs deleteSkill" id="btnDeleteSkill" data-id="'+skillObj.id+'"><i class="fa fa-trash-o"></i></button></form></div></div><div class="col-md-11"><div class="progress"><div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="'+(skillObj.value * 10)+'" aria-valuemin="0" aria-valuemax="100" style="width: '+ (skillObj.value * 10) +'%"><span class="sr-only">'+(skillObj.value * 10)+' Complete</span></div><span class="progress-type">'+(skillObj.name)+'</span><span class="progress-completed">'+(skillObj.value * 10)+'%</span></div></div>');
+        // });
+        // });
+	
+	});
+
+	$(document).on('submit', '#form-reply', function(e){
+		$.ajaxSetup({
+	        header:$('meta[name="_token"]').attr('content')
+	    })
+	    
+	    console.log(e);
+		e.preventDefault();
+		
+		$.ajax({
+            method: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function (data) {
+            	window.location.replace('{{url('user/group')."/".$group->id."/panel/timeline"}}');
+	            console.log(data);
+	        }
+        })
+        
+        .done(function(data) {
+        	
+            alert("Thêm bình luận thành công!");
+        })   
+        
+        .fail(function(data) {
+            alert("Thêm bình luận thất bại!");
+        });
+
+        $.get('/', function(data){
+         	console.log(data);
+        // 	$('.progress-skill').empty();
+        // 	$.each(data, function(index, skillObj){
+        //     $('.progress-skill').append('<div class="col-md-1"><div id="deleteTheSkill"><form method="POST" action="{{url('user/skill')."/"}}'+skillObj.id+'" accept-charset="UTF-8" id="formDeleteSkill"><input name="_method" type="hidden" value="DELETE"><input type="hidden" value="{{ Session::token() }}" name="_token"><button style="width:20px;height:20px" type="submit" class="btn btn-danger btn-xs deleteSkill" id="btnDeleteSkill" data-id="'+skillObj.id+'"><i class="fa fa-trash-o"></i></button></form></div></div><div class="col-md-11"><div class="progress"><div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="'+(skillObj.value * 10)+'" aria-valuemin="0" aria-valuemax="100" style="width: '+ (skillObj.value * 10) +'%"><span class="sr-only">'+(skillObj.value * 10)+' Complete</span></div><span class="progress-type">'+(skillObj.name)+'</span><span class="progress-completed">'+(skillObj.value * 10)+'%</span></div></div>');
+        });
+        // });
+	
+	});
+</script>
 @endsection
+

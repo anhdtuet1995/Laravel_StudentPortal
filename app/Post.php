@@ -8,7 +8,7 @@ class Post extends Model
 {
     protected $table = "posts";
 
-    protected $filltable = [
+    protected $fillable = [
     	'id',
     	'subject',
     	'content',
@@ -17,14 +17,14 @@ class Post extends Model
     ];
 
     public function user(){
-    	return $this->belongsTo('App\User', 'user_id');
+    	return $this->belongsTo('App\User');
     }
 
 	public function group(){
-    	return $this->belongsTo('App\Group', 'group_id');
+    	return $this->belongsTo('App\Group');
     }  
 
     public function comments(){
-    	return $this->hasMany('App\Comment', 'comment_id');
+    	return $this->hasMany('App\Comment');
     }  
 }

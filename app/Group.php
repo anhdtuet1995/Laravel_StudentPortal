@@ -50,6 +50,6 @@ class Group extends Model
     }
 
     public function posts(){
-        return $this->hasMany('App\Post', 'post_id');
+        return $this->hasMany('App\Post');
     }
 }

@@ -8,6 +8,8 @@ use App\Http\Requests;
 use Auth;
 use App\User;
 use App\Group;
+use App\Post;
+use App\Comment;
 use DB;
 use Notifynder;
 use Fenos\Notifynder\Models\Notification;
@@ -185,22 +187,39 @@ class AdminGroupController extends Controller
 
     public function getTimeline($id){
     	$group = Group::find($id);
-    	return view('user.group.timeline', compact('group'));
+    	$posts = Group::find($id)->posts()->get();
+    	return view('user.group.timeline', compact('group', 'posts'));
     }
     
-    protected function createPost(array $data, $id)
+    protected function createPost($id, array $data)
     {
-        return Skill::create([
+        return Post::create([
+        	'subject' => $data['subject'],
             'content' => $data['content'],
             'user_id' => Auth::user()->id,
             'group_id' => $id,
         ]);
     }
 
-    public function addPost(Request $request, $id){
-    	if(Group::hasUser(Auth::user()->id)){
-    		$this->createSkill($request->all(), $id);
+    public function addPost($id, Request $request){
+    	//if(Group::find($id)->hasUser(Auth::user()->id)){
+    		$this->createPost($id, $request->all());
         	return response()->json();	
-    	}
+    	//}
     }
+
+    protected function createComment($id, $post_id, array $data){
+    	return Comment::create([
+    		'content' => $data['content'],
+    		'user_id' => Auth::user()->id,
+    		'post_id' => $post_id,
+     	]);
+    }
+
+    public function addComment($id, $post_id, Request $request){
+    	$this->createComment($id, $post_id, $request->all());
+    	return response()->json();
+    }
+
+    
 }

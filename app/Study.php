@@ -7,6 +7,13 @@ use App\User;
 class Study extends Model
 {
     //
+	protected $fillable = [
+		'name',
+		'description',
+		'publication_date',
+		'user_id'
+	];
+
     public function user(){
     	return $this->belongsTo('App\User');
     }

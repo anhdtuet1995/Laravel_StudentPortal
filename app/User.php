@@ -117,10 +117,10 @@ class User extends Authenticatable
     }
 
     public function posts(){
-        return $this->hasMany('App\Post', 'post_id');
+        return $this->hasMany('App\Post');
     }
 
     public function comments(){
-        return $this->hasMany('App\Comment', 'comment_id');
+        return $this->hasMany('App\Comment');
     }
 }

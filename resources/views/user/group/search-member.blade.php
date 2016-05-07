@@ -450,13 +450,13 @@
             @endforeach
             $('#modal-study').empty();
             {{$i=0}}
-            @foreach($user->studies()->get() as $study)
+            @foreach($user->studies()->orderBy('publication_date', 'desc')->get() as $study)
               @if($i % 2 == 0)
               $('#modal-study').append('<article class="timeline-entry"><div class="timeline-entry-inner"><time class="timeline-time"><span>{{$study->publication_date}}</span><span>Today</span></time><div class="timeline-icon bg-green"><i class="fa fa-group"></i></div><div class="timeline-label bg-green"><h4 class="timeline-title">{{$study->name}}</h4></div></div></article>');
-              {{$i++}}
               @else
               $('#modal-study').append('<article class="timeline-entry left-aligned"><div class="timeline-entry-inner"><time  class="timeline-time"><span>{{$study->publication_date}}</span><span>Today</span></time><div class="timeline-icon bg-orange"><i class="fa fa-paper-plane"></i></div><div class="timeline-label bg-orange"><h4 class="timeline-title">{{$study->name}}</h4></div></div></article>');
               @endif
+              {{$i++}}
             @endforeach
             $('#profile-user').modal();
 

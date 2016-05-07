@@ -149,6 +149,12 @@ Route::group(['middleware' => 'web'], function () {
     		Route::post('/add', 'HobbyController@addHobby');	
     	});	
 
+    	Route::group(['prefix' => 'study'], function(){
+    		Route::delete('/{id}', 'StudyController@destroy');
+    		Route::get('/resJson', 'StudyController@resStudy');
+    		Route::post('/add', 'StudyController@addStudy');	
+    	});
+
     	Route::group(['prefix' => 'group'], function(){
     		Route::get('/{id}/panel', 'AdminGroupController@showPanel');
     		Route::get('/{id}/panel/edit', 'AdminGroupController@edit');
@@ -161,7 +167,9 @@ Route::group(['middleware' => 'web'], function () {
     		Route::get('/{id}/panel/member/request/{user_id}', 'AdminGroupController@requestToUser');
     		Route::get('/{id}/panel/member/accept/{user_id}/{noti_id}', 'AdminGroupController@acceptToUser');
     		Route::get('/{id}/panel/timeline', 'AdminGroupController@getTimeline');
-    		Route::post('/{id}/panel/timeline/addPost', 'AdminGroupController@addPost');
+    		Route::post('/{id}/panel/timeline/post/addPost', 'AdminGroupController@addPost');
+    		Route::post('/{id}/panel/timeline/post/{post_id}/reply', 'AdminGroupController@addComment');
+    		Route::get('/{id}/panel/timeline/post/{post_id}/resComment', 'AdminGroupController@resComment');
     	});
     });
 

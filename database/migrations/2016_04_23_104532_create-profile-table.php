@@ -35,6 +35,7 @@ class CreateProfileTable extends Migration
         Schema::create('studies', function (Blueprint $table){
             $table->increments('id');
             $table->string('name');
+            $table->string('description');
             $table->date('publication_date');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
