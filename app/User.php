@@ -115,4 +115,12 @@ class User extends Authenticatable
     public function notifications(){
         return $this->hasMany('Fenos\Notifynder\Models\Notification', 'to_id');
     }
+
+    public function posts(){
+        return $this->hasMany('App\Post', 'post_id');
+    }
+
+    public function comments(){
+        return $this->hasMany('App\Comment', 'comment_id');
+    }
 }

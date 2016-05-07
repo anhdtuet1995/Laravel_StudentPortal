@@ -48,4 +48,8 @@ class Group extends Model
     		return false;
     	}
     }
+
+    public function posts(){
+        return $this->hasMany('App\Post', 'post_id');
+    }
 }

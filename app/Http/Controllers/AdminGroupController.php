@@ -188,4 +188,19 @@ class AdminGroupController extends Controller
     	return view('user.group.timeline', compact('group'));
     }
     
+    protected function createPost(array $data, $id)
+    {
+        return Skill::create([
+            'content' => $data['content'],
+            'user_id' => Auth::user()->id,
+            'group_id' => $id,
+        ]);
+    }
+
+    public function addPost(Request $request, $id){
+    	if(Group::hasUser(Auth::user()->id)){
+    		$this->createSkill($request->all(), $id);
+        	return response()->json();	
+    	}
+    }
 }
