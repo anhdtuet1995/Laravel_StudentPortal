@@ -6,6 +6,7 @@
 
 
 @section('main-content')
+<link rel="stylesheet" type="text/css" href="{{asset('css/timeline.css')}}">
 <style>
     .member-entry {
       border: 1px solid #ebebeb;
@@ -161,6 +162,139 @@
         margin-top: 10px;
       }
     }
+    .modal-header{
+        height: 220px;
+        padding: 10px 150px;
+        background: #78b1f5;
+        
+    }
+    .modal-header .left{
+        width: 400px;
+        margin-right: 5px;
+        float: left;
+    }
+    .modal-header .left img{
+        width: 200px;
+        height: 200px;
+        border: 7px solid #4c70ba;
+        border-radius: 50%;
+    }
+    .modal-header .right{
+        padding-top: 50px;
+        margin-left: 450px;
+        
+    }
+    .info img{
+        width: 16px;
+        height: 16px;
+    }
+
+    .modal-body{
+        background: #f4f4f4;
+        overflow: hidden;
+    }
+    .modal-body .left{
+        float: left;
+        width: 30%;
+        padding-left: 70px;
+        height: 100%;
+    }
+    .left .title{
+        padding-top: 20px;
+        padding-bottom: 10px;
+        font-weight: bold;
+        color: #335696;
+    }
+    input{
+        width: 350px;
+        height: 20px;
+        margin-top: 5px;
+        background: #dddddd;
+    }
+    .ip1{
+        background: #5e76a8;
+        color: white;
+        font-weight: bold;
+        padding-left: 20px;
+    }
+    .line{
+        border: 1px solid #dddddd;
+        margin-top: 5px;
+        width: 370px;
+    }
+    .modal-body .right{
+
+        width: 600px;
+        float: left;
+        padding-left: 20px;
+        margin-left: 150px;
+        height: 100%;
+    }
+    .modal-body .right .title{
+        padding-top: 20px;
+        padding-bottom: 10px;
+        font-weight: bold;
+        color: #335696;
+    }
+    .line2{
+        border: 1px solid #dddddd;
+        margin-top: 5px;
+        width: 600px;
+    }
+    .title2{
+        
+    }
+    .tf1{
+        float: left;
+        font-size: 18px;
+    }
+    .tf2{
+        float: left;
+        margin-left: 370px;
+    }
+    .tf2 img{
+        
+        width: 16px;
+        height: 16px;
+    }
+    .tf3{
+        margin-left: 5px;
+        float: left;
+    }
+    .modal-body .right .info{
+        padding: 15px 5px;
+        padding-top: 5px;
+        font-size: 18px;
+    }
+    p{
+        padding-left: 20px;
+        margin: 0 auto;
+    }
+    .progress {
+      background-color: #fff; 
+      position: relative;
+      height: 25px;
+      width: 370px;
+    }
+    .progress > .progress-type {
+      position: absolute;
+      left: 0px;
+      font-weight: 800;
+      padding: 3px 30px 2px 10px;
+      color: rgb(255, 255, 255);
+      background-color: rgba(25, 25, 25, 0.2);
+    }
+    .progress > .progress-completed {
+      position: absolute;
+      right: 0px;
+      font-weight: 800;
+      padding: 3px 10px 2px;
+    }
+    @media screen and (min-width: 768px) {
+  
+      #profile-user .modal-dialog  {width:1200px; height: 1200px;}
+
+    }
 </style>
 
 <div class="container">
@@ -187,7 +321,7 @@
             </a> 
             <div class="member-details"> 
                 <div class="col-md-4">
-                    <h4> <a href="{{url('user/profile')."/$user->id"}}">{{$user->name}}</a> </h4> 
+                    <h4> <a id="show-profile-{{$user->id}}" href="#">{{$user->name}}</a> </h4> 
                     <div class="row info-list">  
                         <div class="col-sm-12">
                             @if($user->getSkills())
@@ -223,6 +357,65 @@
     </div>
 </div>
 
+<!-- Modal -->
+    <div class="modal fade" id="profile-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!--modal-header-->
+                <div class="modal-header">
+                    <div class="left">
+                        <img id="avatar-modal" src="images/167.jpg">
+                    </div>
+                    <div class="right">
+                        <div id="modal-name" style="font-size:32px;text-transform: uppercase;" class="name">
+                            NGUYỄN THANH VIỆT
+                        </div>
+                        <br/>
+                        <div id="modal-info" class="info">
+                            CEO & WEB DEVELOPER<br>
+                            Xuân Thủy, Hà Nội.<br>
+                            <i>---"Cuộc sống của tôi là gắn bó với chiếc máy tính và viết các chương trình pro!"---</i>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal-header-->
+                <!--modal-body-->
+                <div class="modal-body">
+                    <div class="left">
+                        <div class="title">
+                            KỸ NĂNG PROGRAMMING
+                            <div class="line"></div>
+                        </div>
+                        <div class="skill" id="modal-skill">
+                            
+                        </div>
+                        <div class="title">
+                            SỞ THÍCH
+                            <div class="line"></div>
+                        </div>
+                        <div id="modal-skill" class="hobby">
+                            
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="title">
+                            CÁC CÔNG TRÌNH NGHIÊN CỨU
+                            <div class="line2"></div>
+                        </div>
+                        <div  class="info">
+                                
+                            <div id="modal-study" class="timeline-centered timeline-sm">
+                            
+                            </div>
+                                                                    
+                        </div>
+                    </div>
+                </div>
+                <!--end modal-body-->
+            </div>
+        </div>
+    </div>
+
 <script>
     function removeDuplicates(arr, prop) {
         var new_arr = [];
@@ -238,7 +431,38 @@
      
         return new_arr;
     }
+
     $(function(){
+        @foreach($users as $user)
+        $('#show-profile-{{$user->id}}').click(function(){
+            $('#avatar-modal').attr('src', '{{url('user')."/".$user->avatar}}');
+            $('#modal-name').empty();
+            $('#modal-name').append('{{$user->name}}');
+            $('#modal-info').empty();
+            $('#modal-info').append('Email: {{$user->email}}<br>Giới tính: Nam<br>Trường: {{$user->school}}');
+            $('#modal-skill').empty();
+            @foreach($user->skills()->get() as $skill)
+            $('#modal-skill').append('<div class="progress"><div class="progress-bar active progress-bar-striped" role="progressbar" aria-valuenow="{{$skill->value * 10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$skill->value * 10 . '%'}};"><span class="sr-only">{{$skill->value * 10}} Complete</span></div><span class="progress-type">{{$skill->name}}</span><span class="progress-completed">{{$skill->value * 10 . "%"}}</span></div>');
+            @endforeach
+            $('#modal-hobby').empty();
+            @foreach($user->hobbies()->get() as $hobby)
+             $('#modal-hobby').append('{{$hobby->name}}<br>')
+            @endforeach
+            $('#modal-study').empty();
+            {{$i=0}}
+            @foreach($user->studies()->get() as $study)
+              @if($i % 2 == 0)
+              $('#modal-study').append('<article class="timeline-entry"><div class="timeline-entry-inner"><time class="timeline-time"><span>{{$study->publication_date}}</span><span>Today</span></time><div class="timeline-icon bg-green"><i class="fa fa-group"></i></div><div class="timeline-label bg-green"><h4 class="timeline-title">{{$study->name}}</h4></div></div></article>');
+              {{$i++}}
+              @else
+              $('#modal-study').append('<article class="timeline-entry left-aligned"><div class="timeline-entry-inner"><time  class="timeline-time"><span>{{$study->publication_date}}</span><span>Today</span></time><div class="timeline-icon bg-orange"><i class="fa fa-paper-plane"></i></div><div class="timeline-label bg-orange"><h4 class="timeline-title">{{$study->name}}</h4></div></div></article>');
+              @endif
+            @endforeach
+            $('#profile-user').modal();
+
+        });
+
+        @endforeach
         $("#form-search input").keyup(function(event) {
             $.ajax({
                 url: "{{url('user/group')."/".$group->id."/panel/member/filter"}}",
@@ -269,3 +493,4 @@
     });
 </script>
 @endsection
+
