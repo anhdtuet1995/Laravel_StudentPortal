@@ -110,4 +110,10 @@ class UserController extends Controller
         $noti->save();
         return redirect('user/');
     }
+
+    public function leaveGroup($group_id){
+        $group = Group::find($group_id);
+        $group->removeUser(Auth::user());
+        return redirect('user/');
+    }
 }   

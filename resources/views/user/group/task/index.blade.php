@@ -369,7 +369,7 @@
 				    	</thead>
 				    	<tbody>
 				    		@foreach($user->tasks()->where('group_id', $group->id)->get() as $task)
-				    		<tr>
+				    		<tr id="task-{{$task->id}}">
 				    			<td width="20%">{{$task->name}}</td>
 				    			<td width="60%">{{$task->description}}</td>
 				    			<td width="10%">
@@ -388,10 +388,12 @@
 						            @endif
         						</td>
         						<td width="10%">
-        							{{ Form::open(['url' => '#', 'method' => 'DELETE']) }}
-        							<button id="edit-task-{{$task->id}}" type="button" class="btn btn-default">Sửa</button>
-						            {{ Form::submit('Xóa', ['class' => 'btn btn-danger'])}}
-						            {{ Form::close() }}
+						            <div id="deleteTheTask['{{$task->id}}']">
+						                <form method="POST" action="{{url('user/group')."/".$group->id."/panel/task/manage/".$task->id}}" accept-charset="UTF-8" id="formDeleteTask"><input name="_method" type="hidden" value="DELETE"><input type="hidden" value="{{ Session::token() }}" name="_token">
+						                	<button id="edit-task-{{$task->id}}" type="button" class="btn btn-default">Sửa</button>
+						                    <button type="submit" class="btn btn-danger deleteTask" id="btnDeleteTask" data-id="{{$task->id}}">Xóa</button>
+						               </form>
+						           </div>
         						</td>
 				    		</tr>
 				    		@endforeach
@@ -416,6 +418,27 @@
 			$('#form-edit').append('<form id="form-edit-task" action="{{url('user/group')."/".$group->id."/panel/task/manage/".$task->id."/editTask"}}" method="post"><meta name="_token" content="{!! csrf_token() !!}" /><input type="hidden" name="_token" value="{{ csrf_token() }}"><div class="modal-body"><div class="form-group"><input name="name" id="name" type="text" class="form-control" placeholder="Tên tác vụ" value="{{$task->name}}"></div><div class="form-group"><textarea id="description" name="description" class="form-control" placeholder="Mô tả tác vụ" value="" style="height: 120px;">{{$task->description}}</textarea></div><div class="form-group"><label for="person">Phân công cho:</label><select class="form-control" name="person">@foreach($users as $user)<option value="{{$user->id}}">{{$user->name}}</option>@endforeach</select></div></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Bỏ qua</button><button type="submit" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> Sửa</button></div></form>');
 		});
 	@endforeach
+
+	$('.deleteTask').on('click', function(e) {
+	    var inputData = $('#formDeleteTask').serialize();
+
+	    var dataId = $(this).attr('data-id');
+
+	    $.ajax({
+	        url: '{{ url('/user/group') }}'+"/"+ {{$group->id}}+ '/panel/task/manage/' + dataId,
+	        type: 'DELETE',
+	        data: inputData,
+	        success: function( msg ) {
+	            locaton.reload();
+	        },
+	        error: function( data ) {
+	            console.log("Xóa bị lỗi");
+	        }
+	    });
+
+	    return false;
+	});
+
 	$(document).on('submit', '#form-add-task', function(e){
 		$.ajaxSetup({
 	        header:$('meta[name="_token"]').attr('content')

@@ -196,8 +196,10 @@ Route::group(['middleware' => 'web'], function () {
     		Route::get('/{id}/panel/task/manage', 'AdminGroupController@manageTask');
     		Route::post('/{id}/panel/task/manage/addTask', 'AdminGroupController@addTask');
     		Route::post('/{id}/panel/task/manage/{task_id}/editTask', 'AdminGroupController@editTask');
+    		Route::delete('/{id}/panel/task/manage/{task_id}', 'AdminGroupController@destroy');
     		Route::get('/{id}/panel/mytask', 'AdminGroupController@personalTask');
     		Route::post('/{id}/panel/mytask/{task_id}', ['as' => 'changeStatus', 'uses' => 'AdminGroupController@changeStatusTask']);
+    		Route::get('/{id}/panel/leave', 'UserController@leaveGroup');
     	});
     });
 

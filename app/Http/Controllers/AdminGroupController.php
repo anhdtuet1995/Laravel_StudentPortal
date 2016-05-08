@@ -241,6 +241,18 @@ class AdminGroupController extends Controller
     	}
     }
 
+
+    public function destroy( $id, $task_id,Request $request ) {
+	    $task = Task::findOrFail( $task_id );
+
+	    if ( $request->ajax() ) {
+	        $task->delete( $request->all() );
+
+	        return response(['msg' => 'Skill deleted', 'task_id' => $id, 'status' => 'success']);
+	    }
+	    return response(['msg' => 'Failed deleting the task', 'status' => 'failed']);
+	}
+
     public function editTask($id, $task_id, Request $request){
     	if(Auth::user()->isLeaderGroup($id)){
     		$task = Task::find($task_id);

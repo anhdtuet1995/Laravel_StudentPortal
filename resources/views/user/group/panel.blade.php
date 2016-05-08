@@ -159,7 +159,7 @@ li:hover > .back {
 			<i class="fa fa-thumb-tack fa-3x" aria-hidden="true"></i>
 		</div>
 		<div class="back">My tasks</div></li></a>
-	<a href="#"><li>
+	<a href="{{url('user/group')."/".$group->id."/panel/leave"}}"><li>
 		<div class="front" id="box5">
 			<i class="fa fa-sign-out fa-3x" aria-hidden="true"></i>
 		</div>
