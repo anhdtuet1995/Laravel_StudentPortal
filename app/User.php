@@ -112,6 +112,13 @@ class User extends Authenticatable
         }
     }
 
+    public function hasStudy(){
+        if($this->studies()->count() > 0){
+            return true;
+        }
+        else return false;
+    }
+
     public function notifications(){
         return $this->hasMany('Fenos\Notifynder\Models\Notification', 'to_id');
     }
@@ -122,5 +129,9 @@ class User extends Authenticatable
 
     public function comments(){
         return $this->hasMany('App\Comment');
+    }
+
+    public function tasks(){
+        return $this->hasMany('App\Task');
     }
 }

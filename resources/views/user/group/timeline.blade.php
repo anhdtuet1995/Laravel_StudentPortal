@@ -299,25 +299,12 @@
 <!-- BEGIN TICKET -->
 <div class="grid support-content">
 	 <div class="grid-body">
-		 <h2>Issues</h2>
+		 <h2>Q & A</h2>
 		 
 		 <hr>
 		 
 		 <div class="btn-group">
-			<button type="button" class="btn btn-default active">162 Open</button>
-			<button type="button" class="btn btn-default">95,721 Closed</button>
-		</div>
-		 
-		 <div class="btn-group">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Sort: <strong>Newest</strong> <span class="caret"></span></button>
-			<ul class="dropdown-menu fa-padding" role="menu">
-				<li><a href="#"><i class="fa fa-check"></i> Newest</a></li>
-				<li><a href="#"><i class="fa"> </i> Oldest</a></li>
-				<li><a href="#"><i class="fa"> </i> Recently updated</a></li>
-				<li><a href="#"><i class="fa"> </i> Least recently updated</a></li>
-				<li><a href="#"><i class="fa"> </i> Most commented</a></li>
-				<li><a href="#"><i class="fa"> </i> Least commented</a></li>
-			</ul>
+			<button type="button" class="btn btn-default active">{{$group->posts()->count()}} bài đăng</button>
 		</div>
 		
 		<!-- BEGIN NEW TICKET -->
@@ -330,7 +317,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 							<h4 class="modal-title"><i class="fa fa-pencil"></i>Tạo bài đăng mới</h4>
 						</div>
-						<form id="form-add-post" action="" method="post">
+						<form id="form-add-post" action="{{url('user/group')."/".$group->id."/panel/timeline/post/addPost"}}" method="post">
 							<meta name="_token" content="{!! csrf_token() !!}" /> 
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="modal-body">

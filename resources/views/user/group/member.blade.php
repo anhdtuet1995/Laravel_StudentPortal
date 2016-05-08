@@ -67,7 +67,7 @@
     @elseif($notification->category_id == 4)
     <li><!-- start notification -->
         <a href="#">
-            <i class="fa fa-users text-aqua"></i> {{User::find($notification->from_id) . " đã tham gia vào nhóm"}}
+            <i class="fa fa-users text-aqua"></i> {{User::find($notification->from_id)->name . " đã tham gia vào nhóm"}}
             
         </a>
         <center>

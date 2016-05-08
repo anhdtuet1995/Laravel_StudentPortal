@@ -52,7 +52,7 @@ Route::group(['middleware' => 'web'], function () {
 
 
 	Route::get('/test', function(Request $request){
-		if($request->input('skill') == null && $request->input('hobby') == null){
+		if($request->input('skill') == null && $request->input('hobby') == null && $request->input('study') == null){
 			$users = DB::table('users')
 					->select('users.*')
 					->get();	
@@ -64,7 +64,7 @@ Route::group(['middleware' => 'web'], function () {
 			}
 			return response()->json($users);
 		}
-		elseif ($request->input('skill') != null && $request->input('hobby') == null) {
+		elseif ($request->input('skill') != null && $request->input('hobby') == null && $request->input('study') == null) {
 			$skill = $request->input('skill');
 			$arr = explode(",", $skill);
 			$users = DB::table('users')
@@ -80,7 +80,7 @@ Route::group(['middleware' => 'web'], function () {
 			}
 			return response()->json($users);
 		}
-		elseif ($request->input('skill') == null && $request->input('hobby') != null) {
+		elseif ($request->input('skill') == null && $request->input('hobby') != null && $request->input('study') == null) {
 			$hobby = $request->input('hobby');
 			$arr = explode(",", $hobby);
 			$users = DB::table('users')
@@ -96,7 +96,7 @@ Route::group(['middleware' => 'web'], function () {
 			}
 			return response()->json($users);
 		}
-		else{
+		elseif($request->input('skill') != null && $request->input('hobby') != null && $request->input('study') == null){
 			$skill = $request->input('skill');
 			$arr = explode(",", $skill);
 			$hobby = $request->input('hobby');
@@ -109,6 +109,29 @@ Route::group(['middleware' => 'web'], function () {
 					->whereIn('skills.name', $arr, 'and')
 					->whereIn('hobbies.name', $arr2)
 					->get();	
+			foreach($users as $user){
+				if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+				else $user->skill = "Chưa có";
+				if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+				else $user->hobby = "Chưa có";
+			}
+			return response()->json($users);
+		}
+		elseif($request->input('skill') == null && $request->input('hobby') == null && $request->input('study') != null){
+			if($request->input('study') == 0){
+				$users = DB::table('users')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*')
+						->whereNull('studies.id')
+						->get();
+			}
+			if($request->input('study') == 1){
+				$users = DB::table('users')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*')
+						->whereNotNull('studies.id')
+						->get();
+			}
 			foreach($users as $user){
 				if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
 				else $user->skill = "Chưa có";
@@ -170,6 +193,11 @@ Route::group(['middleware' => 'web'], function () {
     		Route::post('/{id}/panel/timeline/post/addPost', 'AdminGroupController@addPost');
     		Route::post('/{id}/panel/timeline/post/{post_id}/reply', 'AdminGroupController@addComment');
     		Route::get('/{id}/panel/timeline/post/{post_id}/resComment', 'AdminGroupController@resComment');
+    		Route::get('/{id}/panel/task/manage', 'AdminGroupController@manageTask');
+    		Route::post('/{id}/panel/task/manage/addTask', 'AdminGroupController@addTask');
+    		Route::post('/{id}/panel/task/manage/{task_id}/editTask', 'AdminGroupController@editTask');
+    		Route::get('/{id}/panel/mytask', 'AdminGroupController@personalTask');
+    		Route::post('/{id}/panel/mytask/{task_id}', ['as' => 'changeStatus', 'uses' => 'AdminGroupController@changeStatusTask']);
     	});
     });
 
@@ -180,3 +208,4 @@ Route::group(['middleware' => 'web'], function () {
     	Route::get('/{id}', 'GroupController@show');
     });
 });
+

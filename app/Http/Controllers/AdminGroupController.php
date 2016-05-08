@@ -10,6 +10,7 @@ use App\User;
 use App\Group;
 use App\Post;
 use App\Comment;
+use App\Task;
 use DB;
 use Notifynder;
 use Fenos\Notifynder\Models\Notification;
@@ -218,8 +219,64 @@ class AdminGroupController extends Controller
 
     public function addComment($id, $post_id, Request $request){
     	$this->createComment($id, $post_id, $request->all());
-    	return response()->json();
+    	return redirect('user/group/'.$id.'/panel/timeline');
     }
 
-    
+    public function manageTask($id){
+    	$group = Group::find($id);
+    	$users = $group->users()->get();
+    	return view('user.group.task.index', compact('group', 'users'));
+    }
+
+    public function addTask($id, Request $request){
+    	if(Auth::user()->isLeaderGroup($id)){
+    		Task::create([
+    			'name' => $request->input('name'),
+    			'description' => $request->input('description'),
+    			'status' => 'started',
+    			'user_id' => $request->get('person'),
+    			'group_id' => $id,
+    		]);
+    		return response()->json();
+    	}
+    }
+
+    public function editTask($id, $task_id, Request $request){
+    	if(Auth::user()->isLeaderGroup($id)){
+    		$task = Task::find($task_id);
+    		$task->name = $request->input('name');
+    		$task->description = $request->input('description');
+    		$task->user_id = $request->get('person');
+    		$task->save();
+    		return redirect('user/group/'.$id.'/panel/task/manage');
+    	}
+    }
+
+    public function personalTask($id){
+    	if(Group::find($id)->hasUser(Auth::user()->id)){
+    		$group = Group::find($id);
+    		$tasks = Auth::user()->tasks()->where('group_id', $group->id)->get();
+    		return view('user.group.task.mytask', compact('group', 'tasks'));
+    	}
+    }
+    public function changeStatusTask($id, $task_id){
+    	if(Group::find($id)->hasUser(Auth::user()->id)){
+    		if(Task::find($task_id)->status == "started"){
+    			$task = Task::find($task_id);
+    			$task->status = "finished";
+    			$task->save();
+    		}
+    		elseif(Task::find($task_id)->status == "finished"){
+    			$task = Task::find($task_id);
+    			$task->status = "pending";
+    			$task->save();
+    		}
+    		elseif(Task::find($task_id)->status == "pending"){
+    			$task = Task::find($task_id);
+    			$task->status = "finished";
+    			$task->save();
+    		}
+    	}
+    	return redirect('user/group/'.$id.'/panel/mytask');
+    }
 }

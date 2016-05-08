@@ -197,11 +197,25 @@
 		            	</div>
 		            	
 		            	<div class="project-progress pull-left">
-		              		<span class="task-title">Completion with: <span>40%</span></span>
-		              		<div class="progress">
-		                		<div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
-		                		</div>
-		              		</div>
+		              		
+                                @if($group->tasks()->count() > 0)
+                                <?php $finished = $group->tasks()->where('status', 'finished')->count();
+                                $total = $group->tasks()->count();
+                                $percent = floor(($finished/$total)*100);
+                                ?>
+                                <span class="task-title">Completion with: <span>{{$percent}}%</span></span>
+                                <div class="progress">
+    		                		<div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="{{$percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$percent}}%;">
+    		                		</div>
+                                </div>
+                                @else
+                                <span class="task-title">Completion with: <span>0%</span></span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                    </div>
+                                </div>
+                                @endif
+		              		
 		            	</div>
 
 		            	<div class="pull-left text-center">
@@ -225,7 +239,63 @@
     	</div>
   	</div>
 </div>
-
+<div class="modal fade" id="profile-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!--modal-header-->
+                <div class="modal-header">
+                    <div class="left">
+                        <img id="avatar-modal" src="images/167.jpg">
+                    </div>
+                    <div class="right">
+                        <div id="modal-name" style="font-size:32px;text-transform: uppercase;" class="name">
+                            NGUYỄN THANH VIỆT
+                        </div>
+                        <br/>
+                        <div id="modal-info" class="info">
+                            CEO & WEB DEVELOPER<br>
+                            Xuân Thủy, Hà Nội.<br>
+                            <i>---"Cuộc sống của tôi là gắn bó với chiếc máy tính và viết các chương trình pro!"---</i>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal-header-->
+                <!--modal-body-->
+                <div class="modal-body">
+                    <div class="left">
+                        <div class="title">
+                            KỸ NĂNG PROGRAMMING
+                            <div class="line"></div>
+                        </div>
+                        <div class="skill" id="modal-skill">
+                            
+                        </div>
+                        <div class="title">
+                            SỞ THÍCH
+                            <div class="line"></div>
+                        </div>
+                        <div id="modal-hobby" class="hobby">
+                            
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="title">
+                            CÁC CÔNG TRÌNH NGHIÊN CỨU
+                            <div class="line2"></div>
+                        </div>
+                        <div  class="info">
+                                
+                            <div id="modal-study" class="timeline-centered timeline-sm">
+                            
+                            </div>
+                                                                    
+                        </div>
+                    </div>
+                </div>
+                <!--end modal-body-->
+            </div>
+        </div>
+    </div>
 <script>
     if($('li').hasClass('active')){
         $('li').removeClass('active');

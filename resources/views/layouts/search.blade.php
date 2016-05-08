@@ -217,6 +217,11 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                 <label for="hobby">Sở thích:</label>
                 <input id="hobby" name="hobby" type="text" class="form-control input-lg" placeholder="Sở thích">
             </div>
+            <div class="form-group">
+                <label for="study">Công trình nghiên cứu:</label>
+                <label class="checkbox-inline"><input name="study" type="checkbox" value="1">Có</label>
+                <label class="checkbox-inline"><input name="study" type="checkbox" value="0">Không</label>
+            </div>
         </form>
         <div class="search-result" style="padding-top:30px;padding-bottom:30px;">
             @foreach($users as $user)
@@ -356,13 +361,26 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         }
  
         $(function(){
+            $("input:checkbox").on('click', function() {
+                // in the handler, 'this' refers to the box clicked on
+                var $box = $(this);
+                if ($box.is(":checked")) {
+                    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                  
+                    $(group).prop("checked", false);
+                    $box.prop("checked", true);
+                } else {
+                    $box.prop("checked", false);
+                }
+            });
             $("#form-search input").keyup(function(event) {
                 $.ajax({
                     url: "{{url('test')}}",
                     type: "get",
                     data:{
                         skill: $("#skill").val(),
-                        hobby: $("#hobby").val()
+                        hobby: $("#hobby").val(),
+                        study: $("#study").val(),
                     },
                     success: function(response){
                         var test = removeDuplicates(response, "id");

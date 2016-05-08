@@ -52,4 +52,8 @@ class Group extends Model
     public function posts(){
         return $this->hasMany('App\Post');
     }
+
+    public function tasks(){
+        return $this->hasMany('App\Task');
+    }
 }
