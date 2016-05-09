@@ -291,4 +291,9 @@ class AdminGroupController extends Controller
     	}
     	return redirect('user/group/'.$id.'/panel/mytask');
     }
+
+    public function deleteGroup($id, Request $request){
+    	Group::destroy($id);
+    	return redirect('/group');
+    }
 }

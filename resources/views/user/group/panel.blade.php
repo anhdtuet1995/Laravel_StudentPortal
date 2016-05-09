@@ -132,11 +132,11 @@ li:hover > .back {
             <i class="fa fa-thumb-tack fa-3x" aria-hidden="true"></i>
         </div>
         <div class="back">My tasks</div></li></a>   
-	<a href="#"><li>
+	<a href="{{url('user/group')."/".$group->id."/panel/group/delete"}}"><li>
 		<div class="front" id="box6">
 			<i class="fa fa-cog fa-3x" aria-hidden="true"></i>
 		</div>
-		<div class="back">Cài đặt</div></li></a>
+		<div class="back">Xóa nhóm</div></li></a>
 </ul>
 </nav>
 @elseif(Auth::user()->isMemberGroup($group->id))

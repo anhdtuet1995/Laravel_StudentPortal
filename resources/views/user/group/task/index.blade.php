@@ -429,7 +429,7 @@
 	        type: 'DELETE',
 	        data: inputData,
 	        success: function( msg ) {
-	            locaton.reload();
+	            location.reload();
 	        },
 	        error: function( data ) {
 	            console.log("Xóa bị lỗi");

@@ -200,6 +200,7 @@ Route::group(['middleware' => 'web'], function () {
     		Route::get('/{id}/panel/mytask', 'AdminGroupController@personalTask');
     		Route::post('/{id}/panel/mytask/{task_id}', ['as' => 'changeStatus', 'uses' => 'AdminGroupController@changeStatusTask']);
     		Route::get('/{id}/panel/leave', 'UserController@leaveGroup');
+    		Route::get('/{id}/panel/group/delete', 'AdminGroupController@deleteGroup');
     	});
     });
 
@@ -210,4 +211,5 @@ Route::group(['middleware' => 'web'], function () {
     	Route::get('/{id}', 'GroupController@show');
     });
 });
+
 
