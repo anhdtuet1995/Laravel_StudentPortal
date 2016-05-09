@@ -18,6 +18,7 @@
         </a>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
+            @if(Auth::guard('web')->check())
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
 
@@ -66,6 +67,7 @@
                             </ul>
                         </li>
                     </ul>
+                    @endif
                 </li>
                 <!-- Tasks Menu -->
                 

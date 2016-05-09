@@ -219,8 +219,11 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
             </div>
             <div class="form-group">
                 <label for="study">Công trình nghiên cứu:</label>
-                <label class="checkbox-inline"><input name="study" type="checkbox" value="1">Có</label>
-                <label class="checkbox-inline"><input name="study" type="checkbox" value="0">Không</label>
+                <select id="study" name="study" class="form-control input-lg">
+                  <option value="0">Cả hai</option>
+                  <option value="1">Có</option>
+                  <option value="2">Không</option>
+                </select>
             </div>
         </form>
         <div class="search-result" style="padding-top:30px;padding-bottom:30px;">
@@ -361,18 +364,35 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         }
  
         $(function(){
-            $("input:checkbox").on('click', function() {
-                // in the handler, 'this' refers to the box clicked on
-                var $box = $(this);
-                if ($box.is(":checked")) {
-                    var group = "input:checkbox[name='" + $box.attr("name") + "']";
-                  
-                    $(group).prop("checked", false);
-                    $box.prop("checked", true);
-                } else {
-                    $box.prop("checked", false);
-                }
+            $("#study").change(function(event) {
+                $.ajax({
+                    url: "{{url('test')}}",
+                    type: "get",
+                    data:{
+                        skill: $("#skill").val(),
+                        hobby: $("#hobby").val(),
+                        study: $(this).val(),
+                    },
+                    success: function(response){
+                        var test = removeDuplicates(response, "id");
+                        console.log(test);
+                        $('.search-result').empty();
+                        $.each(test, function(index, userObj){
+                            var str = '<div class="member-entry">';
+                            if(userObj.avatar != ""){
+                                str += '<a href="#" class="member-img"><img src="{{url('get')."/"}}'+userObj.avatar+'" class="img-rounded"></a>';
+                            }
+                            else{
+                                str += '<a href="#" class="member-img"><img src="{{asset('img/default-avatar.png')}}" class="img-rounded"></a>';
+                            }
+                            str += '<div class="member-details"><h4><a href="{{url('user/profile')."/"}}'+userObj.id+'">'+userObj.name+'</a></h4><div class="row info-list"><div class="col-sm-12">Kỹ năng: '+userObj.skill+'</div><div class="clear"></div><div class="col-sm-12">Sở thích: '+userObj.hobby+'</div></div></div></div>';
+                            $('.search-result').append(str);
+                        })
+
+                    }
+                });
             });
+
             $("#form-search input").keyup(function(event) {
                 $.ajax({
                     url: "{{url('test')}}",
@@ -394,7 +414,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                             else{
                                 str += '<a href="#" class="member-img"><img src="{{asset('img/default-avatar.png')}}" class="img-rounded"></a>';
                             }
-                            str += '<div class="member-details"><h4><a href="#">'+userObj.name+'</a></h4><div class="row info-list"><div class="col-sm-12">Kỹ năng: '+userObj.skill+'</div><div class="clear"></div><div class="col-sm-12">Sở thích: '+userObj.hobby+'</div></div></div></div>';
+                            str += '<div class="member-details"><h4><a href="{{url('user/profile')."/"}}'+userObj.id+'">'+userObj.name+'</a></h4><div class="row info-list"><div class="col-sm-12">Kỹ năng: '+userObj.skill+'</div><div class="clear"></div><div class="col-sm-12">Sở thích: '+userObj.hobby+'</div></div></div></div>';
                             $('.search-result').append(str);
                         })
 

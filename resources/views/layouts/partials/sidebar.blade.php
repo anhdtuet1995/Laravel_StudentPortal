@@ -3,7 +3,7 @@
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
+        @if(Auth::guard('web')->check())
         <!-- Sidebar user panel (optional) -->
         @if (! Auth::guest())
             <div class="user-panel">
@@ -49,6 +49,7 @@
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->
+        @endif
     </section>
     <!-- /.sidebar -->
 </aside>

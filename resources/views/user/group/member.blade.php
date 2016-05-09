@@ -78,4 +78,21 @@
     @endif
     @endforeach
 </ul>
+@if(Auth::user()->isLeaderGroup($group->id))
+<script>
+  if($('li').hasClass('active')){
+      $('li').removeClass('active');
+      $('#menu-my-group').addClass('active');
+      $('#my-group-{{$group->id}}').addClass('active');
+    };
+</script>
+@elseif(Auth::user()->isMemberGroup($group->id))
+<script>
+  if($('li').hasClass('active')){
+      $('li').removeClass('active');
+      $('#menu-other-group').addClass('active');
+      $('#other-group-{{$group->id}}').addClass('active');
+    };
+</script>
+@endif
 @endsection

@@ -52,94 +52,237 @@ Route::group(['middleware' => 'web'], function () {
 
 
 	Route::get('/test', function(Request $request){
-		if($request->input('skill') == null && $request->input('hobby') == null && $request->input('study') == null){
-			$users = DB::table('users')
-					->select('users.*')
-					->get();	
-			foreach($users as $user){
-				if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
-				else $user->skill = "Chưa có";
-				if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
-				else $user->hobby = "Chưa có";
-			}
-			return response()->json($users);
-		}
-		elseif ($request->input('skill') != null && $request->input('hobby') == null && $request->input('study') == null) {
-			$skill = $request->input('skill');
-			$arr = explode(",", $skill);
-			$users = DB::table('users')
-					->join('skills', 'users.id', '=', 'skills.user_id')
-					->select('users.*', 'skills.name as skill')
-					->whereIn('skills.name', $arr, 'and')
-					->get();	
-			foreach($users as $user){
-				if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
-				else $user->skill = "Chưa có";
-				if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
-				else $user->hobby = "Chưa có";
-			}
-			return response()->json($users);
-		}
-		elseif ($request->input('skill') == null && $request->input('hobby') != null && $request->input('study') == null) {
-			$hobby = $request->input('hobby');
-			$arr = explode(",", $hobby);
-			$users = DB::table('users')
-					->join('hobbies', 'users.id', '=', 'hobbies.user_id')
-					->select('users.*', 'hobbies.name as hobby')
-					->whereIn('hobbies.name', $arr)
-					->get();	
-			foreach($users as $user){
-				if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
-				else $user->skill = "Chưa có";
-				if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
-				else $user->hobby = "Chưa có";
-			}
-			return response()->json($users);
-		}
-		elseif($request->input('skill') != null && $request->input('hobby') != null && $request->input('study') == null){
-			$skill = $request->input('skill');
-			$arr = explode(",", $skill);
-			$hobby = $request->input('hobby');
-			$arr2 = explode(",", $hobby);
-			$users = DB::table('users')
-					->join('skills', 'users.id', '=', 'skills.user_id')
-					->join('hobbies', 'users.id', '=', 'hobbies.user_id')
-					->select('users.*', 'skills.name as skill')
-					->select('users.*', 'hobbies.name as hobby')
-					->whereIn('skills.name', $arr, 'and')
-					->whereIn('hobbies.name', $arr2)
-					->get();	
-			foreach($users as $user){
-				if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
-				else $user->skill = "Chưa có";
-				if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
-				else $user->hobby = "Chưa có";
-			}
-			return response()->json($users);
-		}
-		elseif($request->input('skill') == null && $request->input('hobby') == null && $request->input('study') != null){
-			if($request->input('study') == 0){
+		if($request->input('skill') == null && $request->input('hobby') == null){
+			if($request->get('study') == 0){
 				$users = DB::table('users')
-						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
 						->select('users.*')
-						->whereNull('studies.id')
-						->get();
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);	
 			}
-			if($request->input('study') == 1){
+			elseif($request->get('study') == 1){
 				$users = DB::table('users')
 						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
 						->select('users.*')
 						->whereNotNull('studies.id')
-						->get();
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
 			}
-			foreach($users as $user){
-				if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
-				else $user->skill = "Chưa có";
-				if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
-				else $user->hobby = "Chưa có";
+			elseif($request->get('study') == 2){
+				$users = DB::table('users')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*')
+						->whereNull('studies.id')
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
 			}
-			return response()->json($users);
+			
 		}
+		elseif ($request->input('skill') != null && $request->input('hobby') == null) {
+			if($request->get('study') == 0){
+				$skill = $request->input('skill');
+				$arr = explode(",", $skill);
+				$users = DB::table('users')
+						->join('skills', 'users.id', '=', 'skills.user_id')
+						->select('users.*', 'skills.name as skill')
+						->whereIn('skills.name', $arr, 'and')
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+			elseif($request->get('study') == 1){
+				$skill = $request->input('skill');
+				$arr = explode(",", $skill);
+				$users = DB::table('users')
+						->join('skills', 'users.id', '=', 'skills.user_id')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*', 'skills.name as skill')
+						->whereIn('skills.name', $arr, 'and')
+						->whereNotNull('studies.id')
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+			elseif($request->get('study') == 2){
+				$skill = $request->input('skill');
+				$arr = explode(",", $skill);
+				$users = DB::table('users')
+						->join('skills', 'users.id', '=', 'skills.user_id')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*', 'skills.name as skill')
+						->whereIn('skills.name', $arr, 'and')
+						->whereNull('studies.id')
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+
+		}
+		elseif ($request->input('skill') == null && $request->input('hobby') != null) {
+			if($request->get('study') == 0){
+				$hobby = $request->input('hobby');
+				$arr = explode(",", $hobby);
+				$users = DB::table('users')
+						->join('hobbies', 'users.id', '=', 'hobbies.user_id')
+						->select('users.*', 'hobbies.name as hobby')
+						->whereIn('hobbies.name', $arr)
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+			elseif($request->get('study') == 1){
+				$hobby = $request->input('hobby');
+				$arr = explode(",", $hobby);
+				$users = DB::table('users')
+						->join('hobbies', 'users.id', '=', 'hobbies.user_id')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*', 'hobbies.name as hobby')
+						->whereIn('hobbies.name', $arr)
+						->whereNotNull('studies.id')
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+			elseif($request->get('study') == 2){
+				$hobby = $request->input('hobby');
+				$arr = explode(",", $hobby);
+				$users = DB::table('users')
+						->join('hobbies', 'users.id', '=', 'hobbies.user_id')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*', 'hobbies.name as hobby')
+						->whereIn('hobbies.name', $arr)
+						->whereNull('studies.id')
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+		}
+		else{
+			if($request->get('study') == 0){
+				$skill = $request->input('skill');
+				$arr = explode(",", $skill);
+				$hobby = $request->input('hobby');
+				$arr2 = explode(",", $hobby);
+				$users = DB::table('users')
+						->join('skills', 'users.id', '=', 'skills.user_id')
+						->join('hobbies', 'users.id', '=', 'hobbies.user_id')
+						->select('users.*', 'skills.name as skill')
+						->select('users.*', 'hobbies.name as hobby')
+						->whereIn('skills.name', $arr, 'and')
+						->whereIn('hobbies.name', $arr2)
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+			elseif($request->get('study') == 1){
+				$skill = $request->input('skill');
+				$arr = explode(",", $skill);
+				$hobby = $request->input('hobby');
+				$arr2 = explode(",", $hobby);
+				$users = DB::table('users')
+						->join('skills', 'users.id', '=', 'skills.user_id')
+						->join('hobbies', 'users.id', '=', 'hobbies.user_id')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*', 'skills.name as skill')
+						->select('users.*', 'hobbies.name as hobby')
+						->whereIn('skills.name', $arr, 'and')
+						->whereIn('hobbies.name', $arr2)
+						->whereNotNull('studies.id')
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+			elseif($request->get('study') == 2){
+				$skill = $request->input('skill');
+				$arr = explode(",", $skill);
+				$hobby = $request->input('hobby');
+				$arr2 = explode(",", $hobby);
+				$users = DB::table('users')
+						->join('skills', 'users.id', '=', 'skills.user_id')
+						->join('hobbies', 'users.id', '=', 'hobbies.user_id')
+						->leftJoin('studies', 'users.id', '=', 'studies.user_id')
+						->select('users.*', 'skills.name as skill')
+						->select('users.*', 'hobbies.name as hobby')
+						->whereIn('skills.name', $arr, 'and')
+						->whereIn('hobbies.name', $arr2)
+						->whereNull('studies.id')
+						->get();	
+				foreach($users as $user){
+					if(User::find($user->id)->getSkills()) $user->skill = User::find($user->id)->getSkills();
+					else $user->skill = "Chưa có";
+					if(User::find($user->id)->getHobbies()) $user->hobby = User::find($user->id)->getHobbies();
+					else $user->hobby = "Chưa có";
+				}
+				return response()->json($users);
+			}
+		}
+	});
+
+	Route::group(['prefix' => 'admin'], function(){
+		Route::get('login','Admin\AuthController@getLogin');
+		Route::post('login','Admin\AuthController@postLogin');
+		Route::get('register','Admin\AuthController@getRegister');
+		Route::post('register','Admin\AuthController@postRegister');
+
+		Route::get('dashboard','AdminController@getIndex');
+		Route::get('logout','AdminController@getLogout');
 	});
 
 	//after sign in
