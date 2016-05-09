@@ -156,6 +156,42 @@
 	height:40px;
 }
 
+.testimonials .carousel-info img {
+        border: 1px solid #f5f5f5;
+        border-radius: 150px !important;
+        height: 75px;
+        padding: 3px;
+        width: 75px;
+}
+.testimonials .carousel-info {
+    overflow: hidden;
+}
+.testimonials .carousel-info img {
+    margin-right: 15px;
+}
+.testimonials .carousel-info span {
+    display: block;
+}
+.testimonials span.testimonials-name {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 23px 0 7px;
+}
+@media screen and (min-width: 768px) {
+  
+    #profile-group .modal-dialog  {width:800px; }
+
+}
+</style>
+<script>
+    $(document).ready(function(){
+        
+    });
+</script>
+<style>
+    .des-content .more-text {
+        display: none;
+    }
 </style>
 <div id="content" class="content container-fluid" style="min-height: 682px;">
   	<div class="row">
@@ -193,7 +229,7 @@
 
 		            	<div class="project-name pull-left">
 		              		<div class="name">{{$group->name}}</div>
-		              		<div class="created">Created <span>14.08.2014</span></div>
+		              		<div class="created">Created <span>{{$group->created_at}}</span></div>
 		            	</div>
 		            	
 		            	<div class="project-progress pull-left">
@@ -226,7 +262,7 @@
 		              		</div>
 		            	</div>
 		            	<div class="project-tools desktop-tools text-right pull-left">
-		              		<a href="{{url('/group')."/". $group->id}}"><button type="button" class="btn btn-danger">Xem</button></a>
+		              		<a id="group-{{$group->id}}" ><button type="button" class="btn btn-danger">Xem</button></a>
 		              		<a href="{{url('/user/request')."/". $group->id}}"><button type="button" class="btn btn-primary">Tham gia</button></a>
 		
 		            	</div>
@@ -243,54 +279,28 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <!--modal-header-->
-                <div class="modal-header">
-                    <div class="left">
-                        <img id="avatar-modal" src="images/167.jpg">
-                    </div>
+                <div class="modal-header" style="background-color: #0073b7 !important;">
                     <div class="right">
-                        <div id="modal-name" style="font-size:32px;text-transform: uppercase;" class="name">
+                        <div id="modal-group-name" style="font-size:32px;text-transform: uppercase; color: #fff;" class="name">
                             NGUYỄN THANH VIỆT
                         </div>
                         <br/>
-                        <div id="modal-info" class="info">
-                            CEO & WEB DEVELOPER<br>
-                            Xuân Thủy, Hà Nội.<br>
-                            <i>---"Cuộc sống của tôi là gắn bó với chiếc máy tính và viết các chương trình pro!"---</i>
-                        </div>
                     </div>
                 </div>
                 <!--end modal-header-->
                 <!--modal-body-->
                 <div class="modal-body">
-                    <div class="left">
-                        <div class="title">
-                            KỸ NĂNG PROGRAMMING
-                            <div class="line"></div>
+                   <div class="description">
+                        <h2>Mô tả nhóm</h2>
+                        <hr>
+                        <div class="des-content">
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
                         </div>
-                        <div class="skill" id="modal-skill">
-                            
-                        </div>
-                        <div class="title">
-                            SỞ THÍCH
-                            <div class="line"></div>
-                        </div>
-                        <div id="modal-hobby" class="hobby">
-                            
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="title">
-                            CÁC CÔNG TRÌNH NGHIÊN CỨU
-                            <div class="line2"></div>
-                        </div>
-                        <div  class="info">
-                                
-                            <div id="modal-study" class="timeline-centered timeline-sm">
-                            
-                            </div>
-                                                                    
-                        </div>
-                    </div>
+                   </div>                   
+                   <br>
+                   <div class="user-member" style="overflow: hidden;">
+                        
+                   </div>
                 </div>
                 <!--end modal-body-->
             </div>
@@ -301,5 +311,44 @@
         $('li').removeClass('active');
         $('#search-group').addClass('active');
     };
+    $(function(){
+        @foreach($groups as $group)
+            $('#group-{{$group->id}}').click(function(event) {
+                $('#profile-group').modal();
+                $('#modal-group-name').empty();
+                $('#modal-group-name').append('Thông tin nhóm {{$group->name}}');
+                $('.des-content').empty();
+                $('.des-content').append('{{$group->description}}');
+                var maxLength = 300;
+                $(".des-content").each(function(){
+                    var myStr = $(this).text();
+                    if($.trim(myStr).length > maxLength){
+                        var newStr = myStr.substring(0, maxLength);
+                        var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+                        $(this).empty().html(newStr);
+                        $(this).append(' <a href="javascript:void(0);" class="read-more">Đọc tiếp...</a>');
+                        $(this).append('<span class="more-text">' + removedStr + '</span>');
+                    }
+                });
+                $(".read-more").click(function(){
+                    $(this).siblings(".more-text").contents().unwrap();
+                    $(this).remove();
+                });
+                $('.user-member').empty();
+                $('.user-member').append('<h2>Thành viên</h2><hr>');
+                @foreach($group->users()->get() as $u)
+                     $('.user-member').append('<div class="col-md-6"><div class="row" style="padding-left: 20px"><div class="testimonials"><div class="active item"><div class="carousel-info"><img alt="" src="{{url('user/')."/".$u->avatar}}" class="pull-left"><div class="pull-left"><span class="testimonials-name">{{$u->name}}</span></div></div></div></div></div></div>');
+                @endforeach
+                $('.des-content').expander({
+                    slicePoint: 200,
+                    expandText: 'Click Here to Read More',
+                    userCollapseText: 'Hide Text'
+                });
+            });
+            
+        @endforeach
+        
+    });
+    
 </script>
 @endsection
