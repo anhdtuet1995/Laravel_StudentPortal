@@ -18,6 +18,7 @@ class CreateGroupUser extends Migration
             $table->string('description');
             $table->string('github');
             $table->integer('leader');
+            $table->integer('limituser');
             $table->rememberToken();
             $table->timestamps();
         });

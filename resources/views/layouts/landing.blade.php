@@ -19,7 +19,27 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="{{ asset('/js/smoothscroll.js') }}"></script>
-    
+    <style>
+    .tieude{
+        color: #dddddd;
+        text-align: left;
+        padding-left: 85px;
+        padding-bottom: 20px;
+    }
+    .thongtin{
+        font-size: 14px;
+        color: #dddddd;
+        margin-left: 100px;
+        margin-right: 20px;
+    }
+    .thongtin ul li{
+        display: inline-block;
+        list-style: none;
+    }
+    .thongtin ul li a img{
+        margin-right: 7px;
+    }
+    </style> 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         console
@@ -89,7 +109,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         <div class="container">
             <div class="row centered">
                 <div class="col-lg-12">
-                    <h1>CONNECTWF</h1>
+                    <h1>CONNECT<strong>WF</strong></h1>
                     <h3>Cổng thông tin sinh viên</h3>
                     <h3><a href="#" id="register2" class="btn btn-lg btn-success">Đăng ký ngay!</a></h3>
                 </div>
@@ -143,7 +163,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     <section id="footer" name="footer"></section>
     <div id="footerwrap">
         <div class="container">
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 <h3>Nhóm 1</h3>
                 <p>
                     Đào Tuấn Anh<br/>
@@ -154,10 +174,40 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                 </p>
             </div>
 
-            <div class="col-lg-7">
+            
+
+            <div class="col-lg-4">
                 <h3>Hệ thống quản lý thông tin cá nhân</h3>
                 <br>
                 Đây là một hệ thống được đưa ra để giúp cho sinh viên có một môi trường học tập năng động hơn.
+            </div>
+
+            <div class="col-lg-4">
+                <div class="tieude">
+                    <h3>Liên hệ với chúng tôi</h3>
+                </div>
+                
+                    
+                <div class="thongtin">
+                    <ul>
+                        <li>
+                            <a href="https://twitter.com/cuonglongloanvu"><img src="{{asset('img/home/twitter.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/cuonglongloanvu94"><img src="{{asset('img/home/facebook.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCY43Nffon6dVjUW1I0j2JsA"><img src="{{asset('img/home/youtube.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/cuonglongloanvu/"><img src="{{asset('img/home/instagram.png')}}"></a>
+                        </li>
+                    </ul>
+                    <div class="mahoa">
+                        Copyright © 2016 ConnectWF.<br/>
+                        All rights reserved.
+                    </div>
+                </div>
             </div>
         </div>
     </div>

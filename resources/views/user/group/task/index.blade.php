@@ -374,15 +374,15 @@
 				    			<td width="60%">{{$task->description}}</td>
 				    			<td width="10%">
 				    				@if($task->status == "started")
-									{{ Form::open(['route' => ['changeStatus', $group->id, $task->id], 'method' => 'POST']) }}
+									{{ Form::open(['route' => ['adminChangeStatus', $group->id, $task->id], 'method' => 'POST']) }}
 						            {{ Form::submit('started', ['class' => 'btn btn-info'])}}
 						            {{ Form::close() }}
 						            @elseif($task->status == "finished")
-						            {{ Form::open(['route' => ['changeStatus', $group->id, $task->id], 'method' => 'POST']) }}
+						            {{ Form::open(['route' => ['adminChangeStatus', $group->id, $task->id], 'method' => 'POST']) }}
 						            {{ Form::submit('finished', ['class' => 'btn btn-success'])}}
 						            {{ Form::close() }}
 						            @else
-						            {{ Form::open(['route' => ['changeStatus', $group->id, $task->id], 'method' => 'POST']) }}
+						            {{ Form::open(['route' => ['adminChangeStatus', $group->id, $task->id], 'method' => 'POST']) }}
 						            {{ Form::submit('pending', ['class' => 'btn btn-warning'])}}
 						            {{ Form::close() }}
 						            @endif

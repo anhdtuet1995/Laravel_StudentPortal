@@ -353,7 +353,11 @@
                 <div class="col-md-4" >
                     <div class="invite" >
                         <div class="col-sm-12"> 
-                            <a href="{{url('user/group')."/".$group->id."/panel/member/request"."/".$user->id}}"><button type="button" class="btn btn-primary">Mời vào nhóm</button></a>    
+                            @if(!$group->isFull())
+                            <a href="{{url('user/group')."/".$group->id."/panel/member/request"."/".$user->id}}"><button type="button" class="btn btn-primary">Mời vào nhóm</button></a>
+                            @else
+                            <button type="button" class="btn btn-danger">Nhóm đã đầy</button>
+                            @endif    
                         </div>
                         
                     </div>
@@ -443,7 +447,11 @@
     $(function(){
         @foreach($users as $user)
         $('#show-profile-{{$user->id}}').click(function(){
+            @if($user->avatar != null)
             $('#avatar-modal').attr('src', '{{url('user')."/".$user->avatar}}');
+            @else
+            $('#avatar-modal').attr('src', '{{asset('img/default-avatar.png')}}');
+            @endif
             $('#modal-name').empty();
             $('#modal-name').append('{{$user->name}}');
             $('#modal-info').empty();

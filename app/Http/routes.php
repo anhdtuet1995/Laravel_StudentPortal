@@ -282,6 +282,19 @@ Route::group(['middleware' => 'web'], function () {
 		Route::post('register','Admin\AuthController@postRegister');
 
 		Route::get('dashboard','AdminController@getIndex');
+		
+		Route::get('user', 'AdminController@getUsers');
+		Route::post('user/deleteMany', 'AdminController@deleteManyUser');
+		Route::post('user/add', 'AdminController@addUser');
+		Route::get('user/edit/{id}', 'AdminController@editUser');
+		Route::post('user/edit/{id}', 'AdminController@updateUser');
+
+		Route::get('group', 'AdminController@getGroups');
+		Route::post('group/deleteMany', 'AdminController@deleteManyGroup');
+		Route::post('group/add', 'AdminController@addGroup');
+		Route::get('group/edit/{id}', 'AdminController@editGroup');
+		Route::post('group/edit/{id}', 'AdminController@updateGroup');
+
 		Route::get('logout','AdminController@getLogout');
 	});
 
@@ -342,6 +355,7 @@ Route::group(['middleware' => 'web'], function () {
     		Route::delete('/{id}/panel/task/manage/{task_id}', 'AdminGroupController@destroy');
     		Route::get('/{id}/panel/mytask', 'AdminGroupController@personalTask');
     		Route::post('/{id}/panel/mytask/{task_id}', ['as' => 'changeStatus', 'uses' => 'AdminGroupController@changeStatusTask']);
+    		Route::post('/{id}/panel/task/change/status/{task_id}', ['as' => 'adminChangeStatus', 'uses' => 'AdminGroupController@adminChangeStatusTask']);
     		Route::get('/{id}/panel/leave', 'UserController@leaveGroup');
     		Route::get('/{id}/panel/group/delete', 'AdminGroupController@deleteGroup');
     	});
@@ -352,6 +366,7 @@ Route::group(['middleware' => 'web'], function () {
     	Route::get('/create', 'GroupController@create');
     	Route::post('/store', 'GroupController@store');
     	Route::get('/{id}', 'GroupController@show');
+    	Route::get('/search/res', 'GroupController@searchGroup');
     });
 });
 

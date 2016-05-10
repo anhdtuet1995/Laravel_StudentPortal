@@ -41,6 +41,11 @@
 		    <input name="github" type="text" class="form-control" id="github">
 	  	</div>
 
+	  	<div class="form-group">
+		    <label for="limituser">Số lượng thành viên (từ 3 đến 10)</label>
+		    <input name="limituser" type="number" min="3" max="10" class="form-control" id="limituser">
+	  	</div>
+
 	  	<button type="submit" class="btn btn-default">Tạo</button>
 	</form>
 </div>

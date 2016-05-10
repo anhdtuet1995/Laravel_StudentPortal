@@ -456,6 +456,27 @@ class AdminGroupController extends Controller
     	return redirect('user/group/'.$id.'/panel/mytask');
     }
 
+    public function adminChangeStatusTask($id, $task_id){
+    	if(Group::find($id)->hasUser(Auth::user()->id)){
+    		if(Task::find($task_id)->status == "started"){
+    			$task = Task::find($task_id);
+    			$task->status = "finished";
+    			$task->save();
+    		}
+    		elseif(Task::find($task_id)->status == "finished"){
+    			$task = Task::find($task_id);
+    			$task->status = "pending";
+    			$task->save();
+    		}
+    		elseif(Task::find($task_id)->status == "pending"){
+    			$task = Task::find($task_id);
+    			$task->status = "finished";
+    			$task->save();
+    		}
+    	}
+    	return redirect('user/group/'.$id.'/panel/task/manage');
+    }
+
     public function deleteGroup($id, Request $request){
     	Group::destroy($id);
     	return redirect('/group');

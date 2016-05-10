@@ -7,7 +7,7 @@ use App\User;
 
 class Group extends Model
 {
-    protected $fillable = array('name', 'description', 'github', 'leader');
+    protected $fillable = array('name', 'description', 'github', 'leader', 'limituser');
 
     public function users(){
         return $this->belongsToMany('App\User');
@@ -47,6 +47,13 @@ class Group extends Model
     	else{
     		return false;
     	}
+    }
+
+    public function isFull(){
+        if($this->users()->count() == $this->limituser){
+            return true;
+        }
+        else return false;
     }
 
     public function posts(){

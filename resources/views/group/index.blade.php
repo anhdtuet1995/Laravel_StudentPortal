@@ -4,7 +4,7 @@
 	Group
 @endsection
 
-
+<?php use App\Group; ?>
 @section('main-content')
 <style>
 	
@@ -204,8 +204,8 @@
   	</div>
   	<form>
     	<div class="projects-search">
-      		<input type="text" class="search-input" placeholder="Search projects">
-      	<button class="btn search-btn waves waves-effect waves-float" type="button"><i class="fa fa-search"></i></button>
+                <input type="text" name="keyword" class="search-input" placeholder="Search projects">
+                <button class="btn search-btn waves waves-effect waves-float" type="submit"><i class="fa fa-search"></i></button>   	
     	</div>
   	</form>
   	<a href="{{url('group/create')}}"><button type="button" class="btn btn-primary" style="font-size:15px; ">Tạo nhóm mới</button></a>
@@ -239,13 +239,13 @@
                                 $total = $group->tasks()->count();
                                 $percent = floor(($finished/$total)*100);
                                 ?>
-                                <span class="task-title">Completion with: <span>{{$percent}}%</span></span>
+                                <span class="task-title">Mức độ hoàn thành dự án: <span>{{$percent}}%</span></span>
                                 <div class="progress">
     		                		<div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="{{$percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$percent}}%;">
     		                		</div>
                                 </div>
                                 @else
-                                <span class="task-title">Completion with: <span>0%</span></span>
+                                <span class="task-title">Mức độ hoàn thành dự án: <span>0%</span></span>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                                     </div>
@@ -263,8 +263,11 @@
 		            	</div>
 		            	<div class="project-tools desktop-tools text-right pull-left">
 		              		<a id="group-{{$group->id}}" ><button type="button" class="btn btn-danger">Xem</button></a>
+                            @if(!$group->isFull())
 		              		<a href="{{url('/user/request')."/". $group->id}}"><button type="button" class="btn btn-primary">Tham gia</button></a>
-		
+                            @else
+                            <a id="group-full" href="#"><button type="button" class="btn btn-warning">Nhóm đầy</button></a>
+                            @endif
 		            	</div>
 		            	<div class="clearfix"></div>
 	          		</div>
@@ -276,36 +279,36 @@
   	</div>
 </div>
 <div class="modal fade" id="profile-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!--modal-header-->
-                <div class="modal-header" style="background-color: #0073b7 !important;">
-                    <div class="right">
-                        <div id="modal-group-name" style="font-size:32px;text-transform: uppercase; color: #fff;" class="name">
-                            NGUYỄN THANH VIỆT
-                        </div>
-                        <br/>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--modal-header-->
+            <div class="modal-header" style="background-color: #0073b7 !important;">
+                <div class="right">
+                    <div id="modal-group-name" style="font-size:32px;text-transform: uppercase; color: #fff;" class="name">
+                        NGUYỄN THANH VIỆT
                     </div>
+                    <br/>
                 </div>
-                <!--end modal-header-->
-                <!--modal-body-->
-                <div class="modal-body">
-                   <div class="description">
-                        <h2>Mô tả nhóm</h2>
-                        <hr>
-                        <div class="des-content">
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
-                        </div>
-                   </div>                   
-                   <br>
-                   <div class="user-member" style="overflow: hidden;">
-                        
-                   </div>
-                </div>
-                <!--end modal-body-->
             </div>
+            <!--end modal-header-->
+            <!--modal-body-->
+            <div class="modal-body">
+               <div class="description">
+                    <h2>Mô tả nhóm</h2>
+                    <hr>
+                    <div class="des-content">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+                    </div>
+               </div>                   
+               <br>
+               <div class="user-member" style="overflow: hidden;">
+                    
+               </div>
+            </div>
+            <!--end modal-body-->
         </div>
     </div>
+</div>
 <script>
     if($('li').hasClass('active')){
         $('li').removeClass('active');
@@ -335,18 +338,58 @@
                     $(this).remove();
                 });
                 $('.user-member').empty();
-                $('.user-member').append('<h2>Thành viên</h2><hr>');
+                $('.user-member').append('<h2>Sô thành viên {{$group->users()->count()}}/{{$group->limituser}}</h2><hr>');
                 @foreach($group->users()->get() as $u)
                      $('.user-member').append('<div class="col-md-6"><div class="row" style="padding-left: 20px"><div class="testimonials"><div class="active item"><div class="carousel-info"><img alt="" src="{{url('user/')."/".$u->avatar}}" class="pull-left"><div class="pull-left"><span class="testimonials-name">{{$u->name}}</span></div></div></div></div></div></div>');
                 @endforeach
-                $('.des-content').expander({
-                    slicePoint: 200,
-                    expandText: 'Click Here to Read More',
-                    userCollapseText: 'Hide Text'
-                });
             });
             
         @endforeach
+        $(".search-input").keyup(function(event) {
+            $.ajax({
+                url: "{{url('group/search/res')}}",
+                type: "get",
+                data:{
+                    keyword: $(this).val(),
+                },
+                success: function(response){
+                    console.log(response);
+                    $('.project-wrapper').empty();
+                    $.each(response, function(index, groupObj){
+                        var str = '<div class="project-item"><div class="status-desktop pull-left"><span class="active">Hoạt động</span></div><div class="project-box white-bg pull-left"><div class="status-mobile pull-left"><span class="active">Hoạt động</span></div><div class="project-tools mobile-tools text-right pull-left"><a href="#"><i class="fa fa-eye"></i></a><a href="#"><i class="fa fa-pencil"></i></a><a href="#"><i class="fa fa-close"></i></a></div><div class="project-name pull-left"><div class="name">'+groupObj.name+'</div><div class="created">Created <span>'+groupObj.created_at+'</span></div></div><div class="project-progress pull-left">';
+                        if(groupObj.taskTotal > 0){
+                            var percent = groupObj.taskFinished/groupObj.taskTotal * 100;
+                            str += '<span class="task-title">Mức độ hoàn thành dự án: <span>'+percent+'%</span></span><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="'+percent+'" aria-valuemin="0" aria-valuemax="100" style="width: '+percent+'%;"></div></div>';
+                        }
+                        else{
+                            str += '<span class="task-title">Mức độ hoàn thành dự án: <span>0%</span></span><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div>';
+                        }
+                        str += '</div>';
+
+                        str += '<div class="pull-left text-center"><div class="resp-avatars">';
+
+                        //user
+                        groupObj.members.forEach(function(entry){
+                            str += '<img src="{{url('user')."/"}}'+entry+'" alt="avatar" class="img-circle">';
+                        });
+
+                        str += '</div></div>';
+
+                        str += '<div class="project-tools desktop-tools text-right pull-left"><a id="group-'+groupObj.id+'" ><button type="button" class="btn btn-danger">Xem</button></a>';
+                        if(groupObj.full == 1){
+                            str += '<a id="group-full" href="#"><button type="button" class="btn btn-warning">Nhóm đầy</button></a>';
+                        }
+                        else{
+                            str += '<a href="{{url('/user/request')."/"}}'+groupObj.id+'"><button type="button" class="btn btn-primary">Tham gia</button></a>';
+                        }
+                        
+                        str += '</div><div class="clearfix"></div></div></div>';
+                        $('.project-wrapper').append(str);
+                    })
+                }
+            });
+        });
+        
         
     });
     

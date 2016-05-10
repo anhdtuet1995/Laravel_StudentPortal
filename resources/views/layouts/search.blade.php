@@ -174,6 +174,28 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
       .member-entry .member-details .info-list > div {
         margin-top: 10px;
       }
+      .tieude{
+          color: #dddddd;
+          text-align: left;
+          padding-left: 85px;
+          padding-bottom: 20px;
+      }
+      .thongtin{
+          font-size: 14px;
+          color: #dddddd;
+          margin-left: 100px;
+          margin-right: 20px;
+      }
+      .thongtin ul{
+          list-style: none;
+          display: inline;
+      }
+      .thongtin ul li{
+          
+      }
+      .thongtin ul li a img{
+          margin-right: 7px;
+      }
     }
 
 </style>
@@ -267,7 +289,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     <section id="footer" name="footer"></section>
     <div id="footerwrap">
         <div class="container">
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 <h3>Nhóm 1</h3>
                 <p>
                     Đào Tuấn Anh<br/>
@@ -278,10 +300,40 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                 </p>
             </div>
 
-            <div class="col-lg-7">
+            
+
+            <div class="col-lg-4">
                 <h3>Hệ thống quản lý thông tin cá nhân</h3>
                 <br>
                 Đây là một hệ thống được đưa ra để giúp cho sinh viên có một môi trường học tập năng động hơn.
+            </div>
+
+            <div class="col-lg-4">
+                <div class="tieude">
+                    <h3>Liên hệ với chúng tôi</h3>
+                </div>
+                
+                    
+                <div class="thongtin">
+                    <ul style="list-style: none;">
+                        <li>
+                            <a href="https://twitter.com/cuonglongloanvu"><img src="{{asset('img/home/twitter.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/cuonglongloanvu94"><img src="{{asset('img/home/facebook.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCY43Nffon6dVjUW1I0j2JsA"><img src="{{asset('img/home/youtube.png')}}"></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/cuonglongloanvu/"><img src="{{asset('img/home/instagram.png')}}"></a>
+                        </li>
+                    </ul>
+                    <div class="mahoa">
+                        Copyright © 2016 ConnectWF.<br/>
+                        All rights reserved.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -364,6 +416,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         }
  
         $(function(){
+
             $("#study").change(function(event) {
                 $.ajax({
                     url: "{{url('test')}}",

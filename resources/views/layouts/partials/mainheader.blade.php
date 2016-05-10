@@ -7,7 +7,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>C</b>WF</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Connect</b>WF </span>
+        <span class="logo-lg"><img width="40px" height="40px" src="{{asset('img/home/logonhom3.png')}}" style="padding-right: 5px"><b>Connect</b>WF </span>
     </a>
 
     <!-- Header Navbar -->
